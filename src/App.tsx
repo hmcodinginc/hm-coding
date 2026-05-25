@@ -10,6 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Careers from "./pages/Career";
 import Projects from "./pages/Projects";
 import ProjectDemoEntry from "./pages/ProjectDemoEntry";
+import { ContactModalProvider } from "./context/ContactModalProvider";
 
 export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -35,40 +36,42 @@ export default function App() {
   const closeContact = () => setIsContactOpen(false);
 
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden">
-      <Header openContact={openContact} />
+    <ContactModalProvider openContact={openContact}>
+      <div className="flex flex-col min-h-screen overflow-hidden">
+        <Header openContact={openContact} />
 
-      <ScrollToTop />
+        <ScrollToTop />
 
-      <main className="flex-grow overflow-y-auto bg-gray-50 dark:bg-gray-900 pt-12 pb-12">
-        <Routes>
-          <Route path="/" element={<Home openContact={openContact} />} />
-          <Route path="/about" element={<About openContact={openContact} />} />
-          <Route
-            path="/services"
-            element={<Services openContact={openContact} />}
-          />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:slug" element={<ProjectDemoEntry />} />
-          <Route
-            path="/careers"
-            element={
-              <Careers
-                openContact={openCareerContact}
-                openStartupContact={openStartupContact} // 👈 new
-              />
-            }
-          />
-        </Routes>
-      </main>
+        <main className="flex-grow overflow-y-auto bg-gray-50 dark:bg-gray-900 pt-12 pb-12">
+          <Routes>
+            <Route path="/" element={<Home openContact={openContact} />} />
+            <Route path="/about" element={<About openContact={openContact} />} />
+            <Route
+              path="/services"
+              element={<Services openContact={openContact} />}
+            />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:slug" element={<ProjectDemoEntry />} />
+            <Route
+              path="/careers"
+              element={
+                <Careers
+                  openContact={openCareerContact}
+                  openStartupContact={openStartupContact}
+                />
+              }
+            />
+          </Routes>
+        </main>
 
-      <Footer openContact={openContact} />
+        <Footer openContact={openContact} />
 
-      <ContactCard
-        isOpen={isContactOpen}
-        onClose={closeContact}
-        type={contactType}
-      />
-    </div>
+        <ContactCard
+          isOpen={isContactOpen}
+          onClose={closeContact}
+          type={contactType}
+        />
+      </div>
+    </ContactModalProvider>
   );
 }

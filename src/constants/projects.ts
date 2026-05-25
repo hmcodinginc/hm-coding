@@ -43,7 +43,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
       "Memberships, class bookings, trainer schedules, and retention signals for modern fitness operators.",
     category: "Operations",
     tags: ["Scheduling", "Memberships", "Analytics", "Mobile-first"],
-    status: "coming_soon",
+    status: "live",
     accentGradient: "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600",
     visual: "🏋️",
   },
@@ -54,7 +54,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
       "SKUs, vendors, stock levels, and low-stock alerts with a warehouse-ready control center.",
     category: "Supply chain",
     tags: ["Stock", "Vendors", "Alerts", "Reporting"],
-    status: "coming_soon",
+    status: "live",
     accentGradient: "bg-gradient-to-r from-slate-600 via-indigo-600 to-blue-700",
     visual: "📦",
   },
@@ -65,7 +65,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
       "Pipeline stages, showings, offers, and client follow-ups tailored for brokers and boutique agencies.",
     category: "CRM",
     tags: ["Pipeline", "Listings", "Clients", "Follow-ups"],
-    status: "coming_soon",
+    status: "live",
     accentGradient: "bg-gradient-to-r from-amber-500 via-orange-500 to-red-600",
     visual: "🏠",
   },
@@ -93,7 +93,13 @@ export function getHomeFeaturedProjects(): PortfolioProject[] {
  * Slugs that mount a full in-app demo. Keep in sync with `fullDemoRoutes` in
  * `src/pages/ProjectDemoEntry.tsx` when adding interactive demos.
  */
-export const portfolioFullDemoSlugs = ["client-reminder-crm", "restaurant-pos"] as const;
+export const portfolioFullDemoSlugs = [
+  "client-reminder-crm",
+  "restaurant-pos",
+  "gym-management",
+  "inventory-system",
+  "real-estate-crm",
+] as const;
 export type PortfolioFullDemoSlug = (typeof portfolioFullDemoSlugs)[number];
 
 export function isPortfolioFullDemoSlug(slug: string): slug is PortfolioFullDemoSlug {

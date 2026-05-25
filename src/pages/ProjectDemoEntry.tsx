@@ -16,10 +16,16 @@ import { StatusBadge } from "../components/dashboard";
 /** Lazy-loaded so demo bundles stay isolated and runtime init order stays predictable */
 const ClientReminderCRM = lazy(() => import("./ClientReminderCRM"));
 const RestaurantPOS = lazy(() => import("./RestaurantPOS"));
+const GymManagement = lazy(() => import("./GymManagement"));
+const InventoryManagement = lazy(() => import("./InventoryManagement"));
+const RealEstateCRM = lazy(() => import("./RealEstateCRM"));
 
 const fullDemoRoutes: Record<string, ComponentType> = {
   "client-reminder-crm": ClientReminderCRM,
   "restaurant-pos": RestaurantPOS,
+  "gym-management": GymManagement,
+  "inventory-system": InventoryManagement,
+  "real-estate-crm": RealEstateCRM,
 };
 
 const demoFallback = (

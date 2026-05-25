@@ -1,12 +1,12 @@
 import type {
   ClientReminderStat,
   CustomerReminder,
-  HeroInsight,
   LiveActivityStat,
   NotificationPreview,
   PaymentReminder,
   ReminderStatus,
-} from "../types/client-reminder-crm";
+} from "../types/clientReminderCRMTypes";
+import type { DemoHeroContent, DemoHeroInsight, DemoHeroWorkflowRow } from "../types/demoHeroTypes";
 
 export const clientReminderStats: ClientReminderStat[] = [
   { label: "Active Clients", value: "128", detail: "+18% this month", icon: "👥" },
@@ -34,7 +34,7 @@ export const clientReminderNotifications: NotificationPreview[] = [
   { title: "Client onboarding", description: "New onboarding checklist ready for Luna Labs.", time: "3h ago" },
 ];
 
-export const clientReminderHeroContent = {
+export const clientReminderHeroContent: DemoHeroContent = {
   badgeLead: "Demo SaaS product",
   badgeTag: "CRM",
   title: "ClientReminder CRM",
@@ -44,9 +44,15 @@ export const clientReminderHeroContent = {
   secondaryCta: "Request a walkthrough",
 };
 
-export const clientReminderHeroInsights: HeroInsight[] = [
+export const clientReminderHeroInsights: DemoHeroInsight[] = [
   { label: "Reminder rate", value: "92%", detail: "Client interaction rate across campaigns." },
   { label: "Pipeline health", value: "+24%", detail: "Reminder completion improving week over week." },
+];
+
+export const clientReminderHeroWorkflow: DemoHeroWorkflowRow[] = [
+  { id: "RM-104", primary: "Aurora Events", secondary: "Campaign follow-up", meta: "Due Apr 28", status: "Pending" },
+  { id: "RM-108", primary: "Vivid Properties", secondary: "Onboarding call", meta: "Due May 2", status: "Overdue" },
+  { id: "RM-111", primary: "Pinnacle Media", secondary: "Annual renewal", meta: "Due May 9", status: "Confirmed" },
 ];
 
 export const clientReminderLiveActivityContent = {
@@ -90,6 +96,28 @@ export const clientReminderCtaContent = {
   primaryCta: "Request demo access",
   secondaryCta: "View product details",
 };
+
+export const clientReminderProductDetails = {
+  title: "ClientReminder CRM",
+  intro:
+    "A client engagement platform for teams that manage reminders, payments, and ongoing account activity in one operational workspace.",
+  whatItDoes:
+    "Tracks follow-up reminders, payment due dates, and client notifications with live status—replacing scattered inbox threads and manual spreadsheets.",
+  workflowBenefits: [
+    "Automated reminder queues with clear Pending, Confirmed, and Overdue states",
+    "Payment visibility tied to each client record and renewal cycle",
+    "Live activity stream for deliveries, escalations, and onboarding checkpoints",
+  ],
+  businessAdvantages: [
+    "Fewer missed follow-ups and faster response to at-risk accounts",
+    "Better cash-flow predictability from upcoming payment visibility",
+    "Single source of truth for client-facing teams and managers",
+  ],
+  targetUsage:
+    "Agencies, B2B service firms, and boutique operators with recurring client relationships and high-touch communication.",
+  implementationNote:
+    "HM Coding can customize reminder rules, integrations, and branding for your production rollout.",
+} as const;
 
 export const clientReminderStatusBadgeClasses: Record<ReminderStatus, string> = {
   Overdue: "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-200",

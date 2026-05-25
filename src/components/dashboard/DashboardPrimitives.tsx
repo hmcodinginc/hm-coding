@@ -1,31 +1,15 @@
 import type { HTMLMotionProps } from "framer-motion";
 import { motion } from "framer-motion";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import { cardHover } from "../../animations/motion";
-
-/** Shared surface classes for dashboard demos (compose with DashboardCard or plain divs). */
-export const dashboardShell = {
-  glassInteractive:
-    "rounded-3xl border border-slate-200/60 bg-white/80 p-6 shadow-lg shadow-slate-900/5 backdrop-blur dark:bg-slate-900/70 dark:border-slate-700",
-  glassRaised:
-    "rounded-3xl border border-slate-200/60 bg-white/90 p-6 shadow-lg shadow-slate-900/5 backdrop-blur dark:bg-slate-950/80 dark:border-slate-700",
-  dataTable:
-    "overflow-hidden rounded-3xl border border-slate-200/60 bg-white/90 shadow-lg shadow-slate-900/5 backdrop-blur dark:bg-slate-950/80 dark:border-slate-700",
-  nestedPayment:
-    "rounded-3xl border border-slate-200/80 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/80",
-  nestedNotification: "rounded-3xl border border-white/10 bg-white/10 p-4",
-  nestedMutedStat: "rounded-3xl bg-slate-50 p-4 dark:bg-slate-900/80",
-  heroGlassPanel:
-    "rounded-[32px] border border-white/10 bg-white/10 p-6 shadow-xl shadow-slate-950/10 backdrop-blur",
-  heroInsightTile: "rounded-3xl bg-white/10 p-5",
-  liveHighlight: "rounded-3xl bg-gradient-to-r from-cyan-500 to-purple-600 p-4 text-white",
-} as const;
+import { cardHover, kpiGlowHover } from "../../animations/motion";
 
 type DashboardCardProps = {
   className: string;
   children: ReactNode;
   /** Adds default stat-style hover motion (pairs with Framer Motion host). */
   interactive?: boolean;
+  /** Soft gradient shadow on hover (KPI / stat tiles). */
+  glowOnHover?: boolean;
   /** When false, renders a plain div (nested tiles, static shells). */
   motion?: boolean;
 } & Omit<HTMLMotionProps<"div">, "children" | "className">;
@@ -34,11 +18,20 @@ export function DashboardCard({
   className,
   children,
   interactive = false,
+  glowOnHover = false,
   motion: useMotion = true,
   ...motionProps
 }: DashboardCardProps) {
+  const surfaceClass = [
+    className,
+    interactive && glowOnHover ? kpiGlowHover : "",
+    interactive && !glowOnHover ? "transition-shadow duration-300 hover:shadow-md hover:shadow-slate-900/5 dark:hover:shadow-slate-950/40" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   if (!useMotion) {
-    return <div className={className}>{children}</div>;
+    return <div className={surfaceClass}>{children}</div>;
   }
 
   const hoverProps = interactive
@@ -46,7 +39,7 @@ export function DashboardCard({
     : {};
 
   return (
-    <motion.div className={className} {...hoverProps} {...motionProps}>
+    <motion.div className={surfaceClass} {...hoverProps} {...motionProps}>
       {children}
     </motion.div>
   );
@@ -85,9 +78,9 @@ export function SectionHeader({
   }
 
   return (
-    <div className="flex items-center justify-between gap-4">
-      <div>{stack}</div>
-      {trailing}
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+      <div className="min-w-0">{stack}</div>
+      {trailing ? <div className="shrink-0">{trailing}</div> : null}
     </div>
   );
 }

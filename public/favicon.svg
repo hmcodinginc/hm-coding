@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="35 35 80 90" role="img" aria-label="HM Coding">
+  <defs>
+    <linearGradient id="hm-bar" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F0FF" />
+      <stop offset="100%" stop-color="#0072FF" />
+    </linearGradient>
+    <linearGradient id="hm-stroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E100FF" />
+      <stop offset="100%" stop-color="#7F00FF" />
+    </linearGradient>
+  </defs>
+  <rect x="40" y="40" width="14" height="80" rx="5" fill="url(#hm-bar)" />
+  <rect x="96" y="40" width="14" height="80" rx="5" fill="url(#hm-bar)" />
+  <path
+    d="M 47 55 L 75 95 L 103 55"
+    stroke="url(#hm-stroke)"
+    stroke-width="14"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+</svg>

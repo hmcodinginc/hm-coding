@@ -7,10 +7,21 @@ import {
   clientReminderStats,
   clientReminderUpcomingPayments,
   clientReminderUpcomingPaymentsSection,
-} from "../constants/client-reminder-crm";
-import { SectionHeader, dashboardShell } from "../components/dashboard";
+} from "../constants/clientReminderCRM";
 import {
-  CtaSection,
+  DemoCtaSection,
+  DemoPageFooter,
+  SectionHeader,
+  StaggerItem,
+  StaggerReveal,
+  dashboardShell,
+  demoPageLayout,
+} from "../components/dashboard";
+import {
+  clientReminderCtaContent,
+  clientReminderProductDetails,
+} from "../constants/clientReminderCRM";
+import {
   ClientReminderHero,
   CustomerRemindersTable,
   LiveActivityPanel,
@@ -21,7 +32,7 @@ import {
 
 const ClientReminderCRM: React.FC = () => (
   <motion.div
-    className="w-full flex flex-col gap-12 px-6 py-8 md:px-10 lg:px-16"
+    className={`${demoPageLayout} gap-12`}
     initial="initial"
     animate="animate"
     exit="exit"
@@ -38,7 +49,7 @@ const ClientReminderCRM: React.FC = () => (
       <LiveActivityPanel />
     </section>
 
-    <section className="grid gap-6 xl:grid-cols-[0.75fr_0.25fr]">
+    <section className="grid gap-6 lg:grid-cols-[1fr_0.42fr] xl:grid-cols-[0.75fr_0.25fr]">
       <CustomerRemindersTable />
 
       <motion.div
@@ -81,16 +92,20 @@ const ClientReminderCRM: React.FC = () => (
               <span className="rounded-2xl bg-white/10 px-3 py-1 text-xs text-cyan-100/90">{clientReminderNotificationsSection.badge}</span>
             }
           />
-          <div className="mt-6 space-y-4">
+          <StaggerReveal className="mt-6 space-y-4">
             {clientReminderNotifications.map((item) => (
-              <NotificationCard key={item.title} item={item} />
+              <StaggerItem key={item.title}>
+                <NotificationCard item={item} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </motion.div>
     </section>
 
-    <CtaSection />
+    <DemoCtaSection band={clientReminderCtaContent} details={clientReminderProductDetails} />
+
+    <DemoPageFooter projectLabel="Client Reminder CRM demo" />
   </motion.div>
 );
 

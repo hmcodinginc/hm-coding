@@ -1,12 +1,11 @@
 export type {
   ClientReminderStat,
   CustomerReminder,
-  HeroInsight,
   LiveActivityStat,
   NotificationPreview,
   PaymentReminder,
   ReminderStatus,
-} from "./client-reminder-crm";
+} from "./clientReminderCRMTypes";
 
 export type { PortfolioProject, PortfolioProjectStatus } from "./projects";
 
@@ -16,4 +15,34 @@ export type {
   PosOrderLine,
   PosRevenueSummary,
   PosTransaction,
-} from "./restaurant-pos";
+} from "./restaurantPOSTypes";
+
+export type {
+  GymAnalyticsMetric,
+  GymAttendanceDay,
+  GymMemberActivity,
+  GymMembershipTier,
+  GymRevenueSummary,
+  GymTrainerBlock,
+  GymUpcomingClass,
+} from "./gymManagementTypes";
+
+export type {
+  InventoryActivity,
+  InventoryMetric,
+  InventoryShipment,
+  InventoryVendor,
+  LowStockAlert,
+  SkuAnalytic,
+  WarehouseZone,
+} from "./inventoryManagementTypes";
+
+export type {
+  EstateAnalyticsMetric,
+  EstateListing,
+  EstatePipelineStage,
+  EstateShowing,
+} from "./realEstateCRMTypes";
+
+export type { DemoHeroContent, DemoHeroInsight, DemoHeroWorkflowRow } from "./demoHeroTypes";
+export type { DemoCtaBandContent, DemoProductDetailsContent } from "./demoProductDetailsTypes";

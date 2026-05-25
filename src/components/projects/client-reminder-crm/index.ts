@@ -1,6 +1,4 @@
 export {
-  ClientReminderCtaSection,
-  ClientReminderCtaSection as CtaSection,
   ClientReminderHero,
   CustomerRemindersTable,
   LiveActivityPanel,

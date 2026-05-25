@@ -1,9 +1,11 @@
 export {
   clientReminderCtaContent,
+  clientReminderProductDetails,
   clientReminderCustomerRemindersSection,
   clientReminderCustomers,
   clientReminderHeroContent,
   clientReminderHeroInsights,
+  clientReminderHeroWorkflow,
   clientReminderLiveActivityContent,
   clientReminderLiveActivityStats,
   clientReminderNotifications,
@@ -13,7 +15,7 @@ export {
   clientReminderTableColumns,
   clientReminderUpcomingPayments,
   clientReminderUpcomingPaymentsSection,
-} from "./client-reminder-crm";
+} from "./clientReminderCRM";
 
 export {
   getHomeFeaturedProjects,
@@ -29,9 +31,55 @@ export {
 
 export {
   posAnalyticsMetrics,
+  posCtaContent,
   posDemoHero,
+  posHeroInsights,
+  posHeroWorkflow,
+  posProductDetails,
   posKitchenQueue,
   posOrdersOverview,
   posRecentTransactions,
   posRevenueSummary,
-} from "./restaurant-pos";
+} from "./restaurantPOS";
+
+export {
+  gymAnalyticsMetrics,
+  gymAttendanceWeek,
+  gymCtaContent,
+  gymDemoHero,
+  gymHeroInsights,
+  gymHeroWorkflow,
+  gymProductDetails,
+  gymMemberActivity,
+  gymMembershipTiers,
+  gymRevenueSummary,
+  gymTrainerSchedules,
+  gymUpcomingClasses,
+} from "./gymManagement";
+
+export {
+  inventoryActivityTimeline,
+  inventoryCtaContent,
+  inventoryDemoHero,
+  inventoryHeroInsights,
+  inventoryHeroWorkflow,
+  inventoryProductDetails,
+  inventoryLowStockAlerts,
+  inventoryMetrics,
+  inventoryShipments,
+  inventorySkuAnalytics,
+  inventoryVendors,
+  inventoryWarehouseZones,
+} from "./inventoryManagement";
+
+export {
+  estateAnalyticsMetrics,
+  estateCtaContent,
+  estateDemoHero,
+  estateProductDetails,
+  estateHeroInsights,
+  estateHeroPipelineStages,
+  estateHeroWorkflow,
+  estateListings,
+  estateShowings,
+} from "./realEstateCRM";

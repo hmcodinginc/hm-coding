@@ -28,12 +28,6 @@ export type NotificationPreview = {
   time: string;
 };
 
-export type HeroInsight = {
-  label: string;
-  value: string;
-  detail: string;
-};
-
 export type LiveActivityStat = {
   value: string;
   label: string;
