@@ -11,7 +11,7 @@ export const dashboardShell = {
   nestedNotification: "rounded-3xl border border-white/10 bg-white/10 p-4",
   nestedMutedStat: "rounded-3xl bg-slate-50 p-4 dark:bg-slate-900/80",
   heroGlassPanel:
-    "rounded-[32px] border border-white/10 bg-white/10 p-6 shadow-xl shadow-slate-950/10 backdrop-blur",
-  heroInsightTile: "rounded-3xl bg-white/10 p-5",
+    "rounded-2xl border border-white/10 bg-white/10 p-3.5 shadow-xl shadow-slate-950/10 backdrop-blur sm:rounded-[28px] sm:p-5 lg:rounded-[32px] lg:p-6",
+  heroInsightTile: "rounded-2xl bg-white/10 p-3.5 sm:rounded-3xl sm:p-5",
   liveHighlight: "rounded-3xl bg-gradient-to-r from-cyan-500 to-purple-600 p-4 text-white",
 } as const;
