@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Gym management preview</title>
+  <desc id="desc">A stylized fitness operations dashboard with stats and schedule rows.</desc>
+  <rect width="960" height="540" fill="#05060d"/>
+  <rect x="72" y="58" width="816" height="424" rx="34" fill="#50d6a1" opacity="0.16"/>
+  <rect x="108" y="94" width="744" height="352" rx="24" fill="#0d0d0d"/>
+  <rect x="140" y="132" width="186" height="108" rx="18" fill="#35438a"/>
+  <rect x="362" y="132" width="186" height="108" rx="18" fill="#8c437b"/>
+  <rect x="584" y="132" width="236" height="108" rx="18" fill="#12162b"/>
+  <rect x="140" y="278" width="680" height="132" rx="18" fill="#12162b"/>
+  <rect x="174" y="168" width="78" height="14" rx="7" fill="#f8fafc"/>
+  <rect x="174" y="198" width="118" height="16" rx="8" fill="#50d6a1"/>
+  <rect x="396" y="168" width="80" height="14" rx="7" fill="#f8fafc"/>
+  <rect x="396" y="198" width="118" height="16" rx="8" fill="#3ec3ca"/>
+  <path d="M628 202h34m96 0h34m-130 0c18-34 78-34 96 0" fill="none" stroke="#50d6a1" stroke-width="14" stroke-linecap="round"/>
+  <rect x="178" y="316" width="596" height="12" rx="6" fill="#6e5c7d"/>
+  <rect x="178" y="352" width="420" height="12" rx="6" fill="#3ec3ca"/>
+  <rect x="178" y="388" width="528" height="12" rx="6" fill="#35438a"/>
+</svg>

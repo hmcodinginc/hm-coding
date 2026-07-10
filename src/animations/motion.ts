@@ -1,3 +1,5 @@
+/* ── Existing exports — unchanged ────────────────────────────── */
+
 export const pageTransition = {
   initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
@@ -54,3 +56,41 @@ export const staggerItem = {
     transition: { duration: 0.35, ease: "easeOut" as const },
   },
 };
+
+/* ── New exports — additive only ─────────────────────────────── */
+
+export const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" as const },
+  },
+};
+
+export const fadeInLeft = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, ease: "easeOut" as const },
+  },
+};
+
+export const scaleIn = {
+  hidden: { opacity: 0, scale: 0.94 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.45, ease: "easeOut" as const },
+  },
+};
+
+export const staggerFast = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.09, delayChildren: 0.05 },
+  },
+};
+
+export const glowPulse = "animate-pulse shadow-[0_0_15px_rgba(62,195,202,0.3)]";

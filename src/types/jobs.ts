@@ -4,6 +4,8 @@ export interface Job {
   location: string;
   experience: string;
   type: string;
+  salary?: string;
+  time?: string;
   description: string;
   applyUrl: string;
 }

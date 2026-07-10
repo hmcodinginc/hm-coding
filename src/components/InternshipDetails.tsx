@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { InternshipPromoCard } from "./shared/InternshipPromoCard";
 
 interface Props {
   onSendIdea: () => void;
@@ -31,74 +32,112 @@ const InternshipDetails: React.FC<Props> = ({ onSendIdea }) => {
   };
 
   return (
-    <section className="pt-20 bg-white dark:bg-gray-900">
-      <div className="max-w-6xl mx-auto px-6">
+    <section className="py-24 bg-brand-black perspective-3d preserve-3d border-t border-brand-indigo/10">
+      <div className="max-w-6xl mx-auto px-6 preserve-3d">
 
         {/* TITLE */}
         <motion.h2
-          className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12"
+          className="text-3xl md:text-4xl font-extrabold text-center text-white mb-16 font-display tracking-tight"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
         >
-          What You’ll Work On
+          What You’ll <span className="text-gradient-brand">Work On</span>
         </motion.h2>
 
         {/* CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {items.map((item, index) => (
-            <motion.div
-              key={item.title}
-              className="flex flex-col"
-            >
-              <motion.div
-                className="bg-gray-100 dark:bg-gray-800 p-6 rounded-xl shadow cursor-pointer text-center"
-                whileHover={{ y: -6, scale: 1.05 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => handleClick(index)}
-              >
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  {item.title}
-                </h3>
-              </motion.div>
-
-              {/* DETAILS */}
-                <AnimatePresence>
-                    {activeIndex === index && (
-                        <motion.div
-                        className="mt-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl shadow text-sm text-gray-700 dark:text-gray-300 origin-top"
-                        initial={{ opacity: 0, scaleY: 0.8 }}
-                        animate={{ opacity: 1, scaleY: 1 }}
-                        exit={{ opacity: 0, scaleY: 0.8 }}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
-                        >
-                        {item.details}
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* STARTUP SECTION */}
-        <motion.div
-          className="bg-gradient-to-r from-purple-600 to-cyan-500 text-white p-10 rounded-2xl text-center mt-16"
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 preserve-3d"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } }
+          }}
         >
-          <h2 className="text-2xl font-bold mb-4">
-            Have a Startup Idea?
-          </h2>
+          {items.map((item, index) => {
+            const isActive = activeIndex === index;
+            return (
+              <motion.div 
+                key={item.title} 
+                className="flex flex-col relative"
+                variants={{
+                  hidden: { opacity: 0, y: 30, scale: 0.9 },
+                  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" } }
+                }}
+              >
+                <motion.div
+                  className={`p-6 rounded-2xl transition-all duration-300 text-center cursor-pointer shadow-lg ${
+                    isActive 
+                      ? "border border-brand-cyan bg-brand-surface shadow-neon-cyan/20" 
+                      : "border border-brand-indigo/10 bg-brand-black/50 hover:bg-brand-surface hover:border-brand-cyan/30"
+                  }`}
+                  onClick={() => handleClick(index)}
+                  whileHover={{ y: -8, scale: 1.02 }}
+                >
+                  <h3 className="text-xl font-bold text-white font-display">
+                    {item.title}
+                  </h3>
+                </motion.div>
 
-          <p className="mb-6 text-gray-100">
-            We help you turn your idea into a real product with proper guidance,
-            technical direction, and execution strategy.
-          </p>
-
-          <motion.button
-            onClick={onSendIdea}
-            className="px-6 py-3 bg-yellow-300 text-gray-900 rounded-lg font-semibold"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Send Your Idea
-          </motion.button>
+                {/* DETAILS */}
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.div
+                      className="mt-4 p-6 bg-brand-surface border border-brand-indigo/20 rounded-xl shadow-2xl text-sm leading-relaxed text-gray-300 preserve-3d origin-top"
+                      initial={{ opacity: 0, height: 0, rotateX: -15, transformOrigin: "top" }}
+                      animate={{ opacity: 1, height: "auto", rotateX: 0 }}
+                      exit={{ opacity: 0, height: 0, rotateX: -15 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      style={{ transformStyle: "preserve-3d" }}
+                    >
+                      <p style={{ transform: "translateZ(10px)" }}>
+                        {item.details}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </motion.div>
+
+        {/* STARTUP SECTION — same animation shell as Campus Internship Program */}
+        <div className="relative mt-20 overflow-hidden rounded-3xl perspective-3d preserve-3d">
+          <div
+            className="pointer-events-none absolute left-10 top-1/4 h-72 w-72 animate-float-orb-slow rounded-full bg-brand-cyan/10 blur-3xl"
+            style={{ transform: "translateZ(-40px)" }}
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute bottom-1/4 right-10 h-80 w-80 animate-float-orb-delayed rounded-full bg-brand-magenta/5 blur-3xl"
+            style={{ transform: "translateZ(-60px)" }}
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(72,207,203,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(72,207,203,0.5) 1px, transparent 1px)",
+              backgroundSize: "48px 48px",
+            }}
+            aria-hidden
+          />
+
+          <InternshipPromoCard
+            title={
+              <>
+                Have a <span className="text-gradient-brand">Startup Idea?</span>
+              </>
+            }
+            description="We help you turn your idea into a real product with proper guidance, technical direction, and execution strategy."
+            buttonLabel="Send Your Idea"
+            onButtonClick={onSendIdea}
+            buttonClassName="bg-brand-magenta text-white shadow-neon-magenta"
+          />
+        </div>
 
       </div>
     </section>

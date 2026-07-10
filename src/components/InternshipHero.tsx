@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { InternshipPromoCard } from "./shared/InternshipPromoCard";
 
 interface Props {
   onApplyNow: () => void;
@@ -7,29 +7,38 @@ interface Props {
 
 const InternshipHero: React.FC<Props> = ({ onApplyNow }) => {
   return (
-    <section className="bg-gradient-to-r from-cyan-500 to-purple-600 text-white py-20">
-      <motion.div className="max-w-6xl mx-auto px-6 text-center">
+    <section className="relative overflow-hidden border-y border-brand-indigo/10 bg-brand-black py-24 perspective-3d preserve-3d">
+      <div
+        className="pointer-events-none absolute left-10 top-1/4 h-72 w-72 animate-float-orb-slow rounded-full bg-brand-cyan/10 blur-3xl"
+        style={{ transform: "translateZ(-40px)" }}
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute bottom-1/4 right-10 h-80 w-80 animate-float-orb-delayed rounded-full bg-brand-magenta/5 blur-3xl"
+        style={{ transform: "translateZ(-60px)" }}
+        aria-hidden
+      />
 
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Campus Internship Program
-        </h2>
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(72,207,203,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(72,207,203,0.5) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+        aria-hidden
+      />
 
-        <p className="text-lg md:text-xl text-gray-100 max-w-3xl mx-auto mb-8">
-          Build real-world digital products, work with actual clients, and earn
-          based on your impact — not fixed limits.
-        </p>
-
-        {/* ONLY ONE BUTTON NOW */}
-        <motion.button
-          onClick={onApplyNow}
-          className="px-6 py-3 bg-yellow-300 text-gray-900 font-semibold rounded-lg shadow"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Apply Now
-        </motion.button>
-
-      </motion.div>
+      <InternshipPromoCard
+        title={
+          <>
+            Campus <span className="text-gradient-brand">Internship Program</span>
+          </>
+        }
+        description="Build real-world digital products, work with actual clients, and earn based on your impact — not fixed limits."
+        buttonLabel="Apply Now"
+        onButtonClick={onApplyNow}
+      />
     </section>
   );
 };

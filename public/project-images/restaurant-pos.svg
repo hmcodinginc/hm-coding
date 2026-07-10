@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Restaurant POS preview</title>
+  <desc id="desc">A stylized point of sale interface with order items and table cards.</desc>
+  <rect width="960" height="540" fill="#05060d"/>
+  <rect x="70" y="64" width="820" height="412" rx="34" fill="#3ec3ca" opacity="0.18"/>
+  <rect x="104" y="96" width="752" height="348" rx="24" fill="#0d0d0d"/>
+  <rect x="132" y="126" width="430" height="288" rx="20" fill="#12162b"/>
+  <rect x="590" y="126" width="238" height="288" rx="20" fill="#12162b"/>
+  <rect x="166" y="162" width="164" height="74" rx="16" fill="#35438a"/>
+  <rect x="360" y="162" width="164" height="74" rx="16" fill="#8c437b"/>
+  <rect x="166" y="266" width="164" height="74" rx="16" fill="#6e5c7d"/>
+  <rect x="360" y="266" width="164" height="74" rx="16" fill="#314489"/>
+  <circle cx="206" cy="199" r="16" fill="#50d6a1"/>
+  <circle cx="400" cy="199" r="16" fill="#3ec3ca"/>
+  <circle cx="206" cy="303" r="16" fill="#3ec3ca"/>
+  <circle cx="400" cy="303" r="16" fill="#50d6a1"/>
+  <rect x="630" y="166" width="158" height="12" rx="6" fill="#f8fafc"/>
+  <rect x="630" y="210" width="142" height="10" rx="5" fill="#6e5c7d"/>
+  <rect x="630" y="244" width="166" height="10" rx="5" fill="#6e5c7d"/>
+  <rect x="630" y="278" width="116" height="10" rx="5" fill="#6e5c7d"/>
+  <rect x="630" y="340" width="158" height="42" rx="12" fill="#50d6a1"/>
+</svg>
