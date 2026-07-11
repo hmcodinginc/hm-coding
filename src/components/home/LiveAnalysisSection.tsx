@@ -160,7 +160,7 @@ export const LiveAnalysisSection: React.FC<Live> = ({ openContact }) => {
               animate={{ opacity: phase === "complete" ? 1 : 0, scale: phase === "complete" ? 1 : 0.95 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-             <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full">
+             <div className="flex flex-col sm:flex-row gap-4 items-center justify-start w-full">
 
               <button 
     onClick={openContact} 
