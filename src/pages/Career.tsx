@@ -4,7 +4,8 @@ import JobCard from "../components/JobCard";
 import type { Job } from "../types/jobs";
 import InternshipHero from "../components/InternshipHero";
 import InternshipDetails from "../components/InternshipDetails";
-
+import { Scroll3DWrapper } from "../components/shared/Scroll3DWrapper";
+import { supabase } from "../lib/supabase";
 interface CareersProps {
   openContact: () => void;
   openStartupContact: () => void;
@@ -20,9 +21,32 @@ const Careers: React.FC<CareersProps> = ({
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await fetch("https://hm-coding.onrender.com/jobs");
-        const data = await res.json();
-        setJobs(data);
+        // const res = await fetch("https://hm-coding.onrender.com/jobs");
+        // const data = await res.json();
+        // setJobs(data);
+   const { data, error } = await supabase
+  .from("jobs")
+  .select("*")
+  .eq("active", true);
+
+if (error) {
+  console.error(error);
+  return;
+}
+
+const formattedJobs: Job[] = (data || []).map((job) => ({
+  _id: job.id,
+  title: job.title,
+  location: job.location || "",
+  experience: job.experience || "",
+  type: job.job_type || "",
+  salary: job.salary || "",
+  time: job.time || "",
+  description: job.description || "",
+  applyUrl: job.apply_url || "",
+}));
+
+setJobs(formattedJobs);
       } catch (err) {
         console.error(err);
       } finally {
@@ -34,58 +58,91 @@ const Careers: React.FC<CareersProps> = ({
   }, []);
 
   return (
-    <motion.div className="w-full flex flex-col">
+    <motion.div 
+      className="w-full flex flex-col bg-brand-black pb-24 min-h-screen relative overflow-hidden perspective-3d preserve-3d"
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+      <div className="absolute inset-0 bg-hero-glow pointer-events-none opacity-40" />
+      <div className="absolute inset-0 bg-grid-faint pointer-events-none" />
 
       {/* HERO */}
-      <section className="bg-gradient-to-r from-purple-600 to-cyan-500 text-white py-20">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+      <section className="relative overflow-hidden py-24 border-b border-brand-indigo/10 perspective-3d preserve-3d">
+        {/* 3D Glassmorphic Floating Orbs */}
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full bg-brand-cyan/10 blur-3xl pointer-events-none animate-float-orb-slow" style={{ transform: "translateZ(-40px)" }} />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-brand-magenta/5 blur-3xl pointer-events-none animate-float-orb-delayed" style={{ transform: "translateZ(-60px)" }} />
 
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-            Careers at HM Coding
+        <div className="max-w-6xl mx-auto px-6 text-center preserve-3d">
+          <span className="section-eyebrow mb-3 block">Join Our Team</span>
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-6 font-display tracking-tight text-white relative z-10" style={{ transform: "translateZ(25px)" }}>
+            Careers at <span className="text-gradient-brand">HM Coding</span>
           </h1>
 
-          {/* NEW TAGLINE */}
-          <p className="text-lg md:text-xl text-gray-100 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed relative z-10" style={{ transform: "translateZ(15px)" }}>
             Join us to work on real-world projects, build impactful products,
             and grow with hands-on experience.
           </p>
-
         </div>
       </section>
 
       {/* INTERNSHIP */}
-      <InternshipHero onApplyNow={openContact} />
+      <Scroll3DWrapper>
+        <InternshipHero onApplyNow={openContact} />
+      </Scroll3DWrapper>
 
-      <InternshipDetails onSendIdea={openStartupContact} />
+      <Scroll3DWrapper>
+        <InternshipDetails onSendIdea={openStartupContact} />
+      </Scroll3DWrapper>
 
       {/* JOBS */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900"> {/* 👈 reduced from py-20 */}
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Current Openings
-          </h2>
+      <Scroll3DWrapper>
+        <section className="py-24 bg-brand-black/40 border-t border-brand-indigo/10">
+          <div className="max-w-6xl mx-auto px-6">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-center text-white mb-16 font-display tracking-tight">
+              Current <span className="text-gradient-brand">Openings</span>
+            </h2>
 
-          {loading && (
-            <p className="text-center text-gray-600 dark:text-gray-300">
-              Loading…
-            </p>
-          )}
+            {loading && (
+              <p className="text-center text-gray-400 font-semibold font-display">
+                Loading openings...
+              </p>
+            )}
 
-          {!loading && jobs.length === 0 && (
-            <p className="text-center text-gray-600 dark:text-gray-300">
-              No active openings right now.
-            </p>
-          )}
+            {!loading && jobs.length === 0 && (
+              <p className="text-center text-gray-400 font-semibold font-display">
+                No active openings right now.
+              </p>
+            )}
 
-          {!loading && jobs.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {jobs.map((job) => (
-                <JobCard key={job._id} job={job} />
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+            {!loading && jobs.length > 0 && (
+              <motion.div 
+                className="grid grid-cols-1 md:grid-cols-2 gap-8 preserve-3d"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                variants={{
+                  hidden: {},
+                  visible: { transition: { staggerChildren: 0.1 } }
+                }}
+              >
+                {jobs.map((job) => (
+                  <motion.div
+                    key={job._id}
+                    variants={{
+                      hidden: { opacity: 0, rotateX: 20, y: 40, scale: 0.95 },
+                      visible: { opacity: 1, rotateX: 0, y: 0, scale: 1, transition: { type: "spring", stiffness: 100 } }
+                    }}
+                    className="preserve-3d"
+                  >
+                    <JobCard job={job} />
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+          </div>
+        </section>
+      </Scroll3DWrapper>
 
     </motion.div>
   );

@@ -2,27 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-/* --- Global Style Extensions --- */
-
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  @apply bg-white text-slate-900 dark:bg-gray-900 dark:text-gray-100;
+/* ── Smooth Scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #35438a;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3ec3ca;
 }
 
-/* Better default section rendering */
+body {
+  @apply bg-brand-black text-gray-100 font-body;
+}
+
 section {
   @apply transition-colors duration-300;
 }
 
-/* Carousel Title Styling */
+/* ── Carousel (unchanged) ──────────────────────────────────────── */
 .carousel-title {
-  @apply text-center mt-4 mb-4 text-lg sm:text-xl font-semibold text-purple-600 transition-all duration-500;
+  @apply text-center mt-4 mb-4 text-lg sm:text-xl font-semibold text-brand-magenta transition-all duration-500;
 }
 
-/* Optional hover scaling for images */
 .carousel-img {
   @apply w-full h-64 sm:h-96 object-cover transition-transform duration-700 ease-in-out;
 }
@@ -31,13 +43,346 @@ section {
   @apply scale-105;
 }
 
-/* Smooth card rendering */
 .card-glow {
-  @apply shadow-lg shadow-cyan-500/10;
+  @apply shadow-lg shadow-brand-cyan/10;
 }
 
-/* Cleaner selection color */
+/* ── Selection colour (unchanged) ─────────────────────────────── */
 ::selection {
-  background: #9333ea;
-  color: white;
+  background: #48cfcb;
+  color: #000000;
+}
+
+/* ── Existing component layer (unchanged) ────────────────────── */
+@layer components {
+  .section-eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-brand-lavender;
+  }
+
+  .text-gradient-brand {
+    @apply bg-gradient-to-r from-brand-cyan to-brand-magenta bg-clip-text text-transparent;
+  }
+
+  .card-surface {
+    @apply rounded-2xl border border-brand-indigo/20 bg-brand-surface;
+  }
+
+  /* ── NEW: shimmer button overlay ─────────────────────────────── */
+  .btn-shimmer {
+    @apply relative overflow-hidden;
+  }
+  .btn-shimmer::after {
+    content: "";
+    @apply absolute inset-0 -translate-x-full skew-x-12;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.15),
+      transparent
+    );
+    transition: transform 0.55s ease;
+  }
+  .btn-shimmer:hover::after {
+    @apply translate-x-full;
+  }
+
+  /* ── NEW: gradient border card ───────────────────────────────── */
+  .card-surface-hover {
+    @apply rounded-2xl border border-brand-indigo/20 bg-brand-surface transition-all duration-300;
+  }
+  .card-surface-hover:hover {
+    border-color: rgba(62, 195, 202, 0.35);
+    box-shadow: 0 0 24px rgba(62, 195, 202, 0.12), 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  /* ── NEW: glass panel (header / overlays) ────────────────────── */
+  .glass-panel {
+    background: rgba(13, 13, 13, 0.82);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(62, 195, 202, 0.12);
+  }
+
+  /* ── NEW: active nav underline indicator ─────────────────────── */
+  .nav-active-dot {
+    @apply absolute -bottom-1 left-1/2 -translate-x-1/2 h-1 w-1 rounded-full bg-brand-cyan;
+  }
+}
+
+/* ── NEW: shimmer animation keyframe ─────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ── NEW: subtle grid overlay used in hero / about ───────────── */
+.bg-grid-faint {
+  background-image:
+    linear-gradient(rgba(62, 195, 202, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62, 195, 202, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ── NEW: gradient text (magenta accent) ─────────────────────── */
+.text-gradient-cyan-magenta {
+  background: linear-gradient(135deg, #3ec3ca 0%, #8c437b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── 3D & Perspective Animations ────────────────────────────── */
+.perspective-3d {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Floating animation for background glassmorphic orbs */
+@keyframes float-orb-slow {
+  0%, 100% {
+    transform: translateY(0px) scale(1) translateZ(0);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05) translateZ(20px);
+  }
+}
+
+@keyframes float-orb-delayed {
+  0%, 100% {
+    transform: translateY(0px) scale(1.05) translateZ(10px);
+  }
+  50% {
+    transform: translateY(20px) scale(0.95) translateZ(-10px);
+  }
+}
+
+.animate-float-orb-slow {
+  animation: float-orb-slow 15s ease-in-out infinite;
+}
+
+.animate-float-orb-delayed {
+  animation: float-orb-delayed 18s ease-in-out infinite;
+}
+
+@keyframes logo-glow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(1.08);
+  }
+}
+
+.animate-logo-glow {
+  animation: logo-glow 4s ease-in-out infinite;
+}
+
+@keyframes logo-glow-reverse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(1.05);
+  }
+}
+
+.animate-logo-glow-reverse {
+  animation: logo-glow-reverse 5s ease-in-out infinite;
+}
+
+@keyframes orbit-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-spin-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-orbit-spin {
+  animation: orbit-spin 24s linear infinite;
+}
+
+.animate-orbit-spin-reverse {
+  animation: orbit-spin-reverse 30s linear infinite;
+}
+
+@keyframes pixel-float {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translate(0, 0);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(4px, -6px);
+  }
+}
+
+.animate-pixel-float {
+  animation: pixel-float 3s ease-in-out infinite;
+}
+
+.animate-pixel-float-delayed {
+  animation: pixel-float 3.5s ease-in-out infinite 0.8s;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   NEW ANIMATION SYSTEM  –  5-state logo animations
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── IDLE: Orbiting particles ────────────────────────────────── */
+@keyframes orbit-particle {
+  from { transform: rotate(0deg) translateX(var(--orbit-r, 90px)) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(var(--orbit-r, 90px)) rotate(-360deg); }
+}
+
+.orbit-particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin: -3px;
+  animation: orbit-particle var(--orbit-dur, 8s) linear infinite;
+  animation-delay: var(--orbit-delay, 0s);
+}
+
+/* ── IDLE: Micro rotation  ───────────────────────────────────── */
+@keyframes micro-rotate {
+  0%, 100% { transform: rotate(-2deg); }
+  50%       { transform: rotate(2deg); }
+}
+.animate-micro-rotate {
+  animation: micro-rotate 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* ── EVERY 10s: Attention burst ring ────────────────────────── */
+@keyframes burst-ring {
+  0%   { transform: scale(0.8); opacity: 0.9; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+.animate-burst-ring {
+  animation: burst-ring 1.0s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* ── FIRST VISIT: SVG path draw-in ──────────────────────────── */
+.loader-draw-svg .hm-bar-left,
+.loader-draw-svg .hm-bar-right {
+  /* Approximate bar perimeter: 2*(14+80)=188 */
+  stroke-dasharray: 188;
+  stroke-dashoffset: 188;
+  stroke: url(#hms-bar-loader);
+  fill: none;
+  stroke-width: 2;
+  animation: path-draw 0.6s ease forwards;
+}
+.loader-draw-svg .hm-bar-right {
+  animation-delay: 0.15s;
+}
+.loader-draw-svg .hm-v-stroke {
+  /* Approx V path length ~90 */
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  animation: path-draw 0.55s ease 0.3s forwards;
+}
+
+@keyframes path-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* Loader glow breathe */
+@keyframes loader-glow-breathe {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.15); }
+}
+
+/* ── PAGE CHANGE: Portal expand ─────────────────────────────── */
+@keyframes portal-expand {
+  0%   { transform: scale(0); opacity: 1; }
+  80%  { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── HERO BG: Moving grid ────────────────────────────────────── */
+@keyframes grid-drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 48px 48px; }
+}
+.animate-grid-drift {
+  animation: grid-drift 8s linear infinite;
+}
+
+/* ── HERO BG: Floating dots ─────────────────────────────────── */
+@keyframes float-dot {
+  0%, 100% { transform: translate(0, 0)    scale(1);    opacity: var(--dot-opacity, 0.5); }
+  33%       { transform: translate(6px, -8px) scale(1.2); opacity: 1; }
+  66%       { transform: translate(-4px, 5px) scale(0.9); opacity: var(--dot-opacity, 0.5); }
+}
+.float-dot {
+  animation: float-dot var(--dot-dur, 4s) ease-in-out infinite;
+  animation-delay: var(--dot-delay, 0s);
+}
+
+/* ── HERO BG: Radar sweep ────────────────────────────────────── */
+@keyframes radar-sweep {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-radar {
+  animation: radar-sweep 4s linear infinite;
+  transform-origin: center;
+}
+
+/* ── NAVBAR: active link underline grow ─────────────────────── */
+@keyframes underline-grow {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+.nav-link-hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #3ec3ca, #8c437b);
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link-hover:hover::after,
+.nav-link-hover.active::after {
+  transform: scaleX(1);
+}
+
+/* ── MAGNETIC: logo pull shadow ─────────────────────────────── */
+.logo-magnetic {
+  transition: filter 0.15s ease;
+}
+.logo-magnetic:hover {
+  filter: drop-shadow(0 0 18px rgba(0, 240, 255, 0.7))
+          drop-shadow(0 0 36px rgba(225, 0, 255, 0.35));
 }

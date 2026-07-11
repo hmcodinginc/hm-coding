@@ -9,7 +9,7 @@ export const aboutContent = {
   whoWeAre: {
     title: "Who We Are",
     description:
-      "HM Coding is a technology-driven firm based in India, specializing in designing and developing websites, web apps, mobile applications, and AI-powered digital solutions. Our mission is to help startups and businesses grow with scalable, reliable, and future-ready software products.",
+      "HM Coding is a technology-driven firm based in India, specializing in designing and developing websites, web apps, mobile applications, and intelligent digital solutions. Our mission is to help startups and businesses grow with scalable, reliable, and future-ready software products.",
   },
   missionVision: {
     mission: {

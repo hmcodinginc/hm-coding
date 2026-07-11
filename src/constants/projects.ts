@@ -22,8 +22,9 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     tags: ["React", "TypeScript", "Tailwind", "Framer Motion"],
     status: "live",
     accentGradient: "bg-gradient-to-r from-cyan-500 via-purple-600 to-violet-700",
-    visual: "💜",
-    externalDemoUrl: undefined,
+    visual: "/project-images/client.jpg",
+    imageSrc: "/project-images/client.jpg",
+    imageAlt: "Client Reminder CRM Dashboard",
   },
   {
     slug: "restaurant-pos",
@@ -35,6 +36,8 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     status: "live",
     accentGradient: "bg-gradient-to-r from-orange-500 via-rose-500 to-amber-600",
     visual: "🍽️",
+    imageSrc: "/project-images/restaurant.png",
+    imageAlt: "Restaurant POS System Dashboard",
   },
   {
     slug: "gym-management",
@@ -45,7 +48,9 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     tags: ["Scheduling", "Memberships", "Analytics", "Mobile-first"],
     status: "live",
     accentGradient: "bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600",
-    visual: "🏋️",
+    visual: "💼",
+    imageSrc: "/project-images/gym.jpg",
+    imageAlt: "Gym Management Dashboard",
   },
   {
     slug: "inventory-system",
@@ -57,6 +62,8 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     status: "live",
     accentGradient: "bg-gradient-to-r from-slate-600 via-indigo-600 to-blue-700",
     visual: "📦",
+    imageSrc: "/project-images/inventory.jpg",
+    imageAlt: "Inventory Management Dashboard",
   },
   {
     slug: "real-estate-crm",
@@ -68,6 +75,8 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     status: "live",
     accentGradient: "bg-gradient-to-r from-amber-500 via-orange-500 to-red-600",
     visual: "🏠",
+    imageSrc: "/project-images/real-state.png",
+    imageAlt: "Real Estate CRM Dashboard",
   },
 ] as const;
 
