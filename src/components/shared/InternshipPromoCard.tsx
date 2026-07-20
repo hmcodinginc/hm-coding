@@ -1,9 +1,9 @@
-import type { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { TiltCard } from "./TiltCard";
+import { Heading, Text } from "../ui/Typography";
+import { Button } from "../ui/Button";
 
 type InternshipPromoCardProps = {
-  title: ReactNode;
+  title: React.ReactNode;
   description: string;
   buttonLabel: string;
   onButtonClick: () => void;
@@ -16,41 +16,37 @@ export function InternshipPromoCard({
   description,
   buttonLabel,
   onButtonClick,
-  buttonClassName = "bg-brand-cyan text-brand-black shadow-neon-cyan",
+  buttonClassName = "w-max mx-auto sm:w-auto",
   className = "",
 }: InternshipPromoCardProps) {
   return (
-    <div className={`max-w-6xl mx-auto px-6 text-center preserve-3d flex justify-center ${className}`}>
-      <TiltCard maxRotation={6} className="w-full max-w-4xl preserve-3d">
-        <div className="card-surface group relative overflow-hidden rounded-3xl border border-brand-cyan/20 bg-brand-gradient/10 p-10 shadow-card-md preserve-3d md:p-14">
+    <div className={`w-full text-center flex justify-center relative z-10 ${className}`}>
+      <motion.div 
+        className="w-[90%] max-w-4xl mx-auto"
+        whileHover={{ scale: 1.02 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      >
+        <div className="card-surface group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-brand-cyan/20 bg-brand-gradient/10 p-6 sm:p-10 md:p-14 shadow-card-md">
           <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/10 to-transparent transition-transform duration-1000 ease-out group-hover:translate-x-full" />
 
-          <h2
-            className="relative z-10 mb-6 font-display text-3xl font-extrabold tracking-tight text-white md:text-5xl"
-            style={{ transform: "translateZ(25px)" }}
-          >
+          <Heading level={2} className="relative z-10 mb-4 sm:mb-6">
             {title}
-          </h2>
+          </Heading>
 
-          <p
-            className="relative z-10 mx-auto mb-10 max-w-3xl text-lg leading-relaxed text-gray-300 md:text-xl"
-            style={{ transform: "translateZ(15px)" }}
-          >
+          <Text variant="lead" className="relative z-10 mx-auto mb-6 sm:mb-10 max-w-3xl">
             {description}
-          </p>
+          </Text>
 
-          <motion.button
-            type="button"
+          <Button
+            variant="primary"
+            size="lg"
             onClick={onButtonClick}
-            className={`relative z-10 rounded-full px-8 py-4 font-bold hover:opacity-95 btn-shimmer ${buttonClassName}`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            style={{ transform: "translateZ(20px)" }}
+            className={`relative z-50 btn-shimmer ${buttonClassName}`}
           >
             {buttonLabel}
-          </motion.button>
+          </Button>
         </div>
-      </TiltCard>
+      </motion.div>
     </div>
   );
 }

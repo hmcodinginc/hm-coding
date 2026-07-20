@@ -6,12 +6,12 @@ export function ProcessTimeline() {
   const { eyebrow, title, steps } = processContent;
 
   return (
-    <section className="bg-brand-black py-20">
+    <section className="bg-brand-black py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={eyebrow} title={title} />
 
         <motion.div
-          className="grid grid-cols-1 gap-8 md:grid-cols-3"
+          className="mx-auto w-full max-w-[380px] md:max-w-none grid grid-cols-1 gap-8 md:grid-cols-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}

@@ -18,7 +18,7 @@ export function StatsBar() {
   };
 
   return (
-    <section className="border-y border-brand-indigo/20 bg-brand-black py-14 overflow-hidden">
+    <section className="border-y border-brand-indigo/20 bg-brand-black py-8 sm:py-14 overflow-hidden">
       <motion.h2 
         className="text-center font-medium italic text-white drop-shadow-[0_0_8px_rgba(245,158,11,0.6)] text-base sm:text-lg md:text-xl tracking-wide max-w-2xl mx-auto leading-relaxed px-6 sm:px-8"
         variants={containerVariants}

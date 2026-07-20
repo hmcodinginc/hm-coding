@@ -49,12 +49,12 @@ export function WhyChooseUs() {
   const { eyebrow, title, description, features } = whyChooseUsContent;
 
   return (
-    <section className="bg-brand-black py-20">
+    <section className="bg-brand-black py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={eyebrow} title={title} description={description} />
 
         <motion.div
-          className="grid grid-cols-1 gap-8 md:grid-cols-3"
+          className="mx-auto w-full max-w-[380px] md:max-w-none grid grid-cols-1 gap-8 md:grid-cols-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -66,7 +66,7 @@ export function WhyChooseUs() {
           {features.map((feature) => (
             <motion.div
               key={feature.title}
-              className="card-surface p-8 flex flex-col items-center justify-center text-center transition hover:border-brand-cyan/40 hover:shadow-neon-cyan"
+              className="card-surface p-6 sm:p-8 flex flex-col items-center justify-center text-center transition hover:border-brand-cyan/40 hover:shadow-neon-cyan"
               variants={{
                 hidden: { opacity: 0, y: 16 },
                 visible: { opacity: 1, y: 0 },

@@ -4,7 +4,7 @@ import { supabase } from "../lib/supabase";
 interface ContactCardProps {
   isOpen: boolean;
   onClose: () => void;
-  type?: "general" | "career" | "startup";
+  type?: "general" | "career" | "startup" | "demo";
 }
 
 const ContactCard: React.FC<ContactCardProps> = ({
@@ -78,6 +78,8 @@ const ContactCard: React.FC<ContactCardProps> = ({
       ? "Apply for Internship"
       : type === "startup"
       ? "Share Your Idea"
+      : type === "demo"
+      ? "Book a Demo"
       : "Contact Us";
 
   const description =
@@ -85,6 +87,8 @@ const ContactCard: React.FC<ContactCardProps> = ({
       ? "Send us your details to apply for the internship program."
       : type === "startup"
       ? "Have an idea? Let's discuss how we can build it together."
+      : type === "demo"
+      ? "Schedule a demonstration of our products and services tailored for your business."
       : "Reach out to us using the form below or our direct channels.";
 
   const fieldClass =
@@ -94,24 +98,25 @@ const ContactCard: React.FC<ContactCardProps> = ({
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 z-[70] flex items-center justify-center bg-black/60 px-4 backdrop-blur-md"
+          className="fixed inset-0 z-[70] overflow-y-auto bg-black/60 backdrop-blur-md"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
         >
-          <motion.div
-            className="bg-brand-black rounded-[2rem] shadow-2xl overflow-hidden w-full max-w-5xl flex flex-col md:flex-row relative border border-brand-indigo/30"
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="flex min-h-full justify-center p-4 py-4 sm:py-10">
+            <motion.div
+              className="m-auto bg-brand-black rounded-[2rem] shadow-2xl w-full max-w-5xl flex flex-col lg:flex-row relative border border-brand-indigo/30"
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+            >
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-6 right-6 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 backdrop-blur-md transition-colors shadow-sm"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 backdrop-blur-md transition-colors shadow-sm"
               aria-label="Close contact card"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -120,18 +125,18 @@ const ContactCard: React.FC<ContactCardProps> = ({
             </button>
 
             {/* Left Form Section */}
-            <div className="flex-1 p-8 md:p-12 order-2 md:order-1 bg-brand-black relative">
+            <div className="flex-1 shrink-0 p-5 sm:p-6 lg:p-12 order-1 bg-brand-black relative rounded-t-[2rem] lg:rounded-l-[2rem] lg:rounded-tr-none overflow-hidden">
               <div className="absolute top-0 left-0 w-full h-full bg-hero-glow opacity-30 pointer-events-none" />
-              <h2 className="relative z-10 text-3xl font-bold text-white mb-3 font-display tracking-wide">
+              <h2 className="relative z-10 pr-10 sm:pr-0 text-2xl sm:text-3xl font-bold text-white mb-2 sm:mb-3 font-display tracking-wide">
                 {title}
               </h2>
-              <p className="relative z-10 text-gray-400 mb-10 text-sm">
+              <p className="relative z-10 text-gray-400 mb-6 sm:mb-10 text-[13px] sm:text-sm">
                 {description}
               </p>
 
-              <form className="relative z-10 grid gap-6" onSubmit={handleSubmit}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <label className="grid gap-2 text-sm font-semibold text-gray-300">
+              <form className="relative z-10 grid gap-4 sm:gap-6" onSubmit={handleSubmit}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                  <label className="grid gap-1.5 sm:gap-2 text-sm font-semibold text-gray-300">
                     Your Name
                     <input
                       type="text"
@@ -142,7 +147,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
                       required
                     />
                   </label>
-                  <label className="grid gap-2 text-sm font-semibold text-gray-300">
+                  <label className="grid gap-1.5 sm:gap-2 text-sm font-semibold text-gray-300">
                     Your Email
                     <input
                       type="email"
@@ -154,11 +159,11 @@ const ContactCard: React.FC<ContactCardProps> = ({
                     />
                   </label>
                 </div>
-                <label className="grid gap-2 text-sm font-semibold text-gray-300">
+                <label className="grid gap-1.5 sm:gap-2 text-sm font-semibold text-gray-300">
                   Your Message
                   <textarea
                     placeholder="How can we help you?"
-                    className={`${fieldClass} min-h-[140px] resize-y`}
+                    className={`${fieldClass} min-h-[100px] sm:min-h-[140px] resize-y`}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     required
@@ -166,7 +171,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
                 </label>
                 <motion.button
                   type="submit"
-                  className="mt-4 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-magenta px-6 py-4 text-[15px] font-bold text-white hover:opacity-95 transition-all w-full shadow-[0_0_20px_rgba(140,67,123,0.3)] hover:shadow-[0_0_30px_rgba(62,195,202,0.4)]"
+                  className="mt-2 sm:mt-4 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-magenta px-6 py-3 sm:py-4 text-[14px] sm:text-[15px] font-bold text-white hover:opacity-95 transition-all w-max sm:w-auto shadow-[0_0_20px_rgba(140,67,123,0.3)] hover:shadow-[0_0_30px_rgba(62,195,202,0.4)]"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -176,7 +181,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
             </div>
 
             {/* Right Direct Contacts Section */}
-            <div className="md:w-[40%] bg-brand-surface p-8 md:p-12 flex flex-col justify-center order-1 md:order-2 relative overflow-hidden border-l border-brand-indigo/30">
+            <div className="lg:w-[40%] shrink-0 bg-brand-surface p-6 lg:p-12 flex flex-col justify-center order-2 relative overflow-hidden border-t lg:border-t-0 lg:border-l border-brand-indigo/30 rounded-b-[2rem] lg:rounded-r-[2rem] lg:rounded-bl-none">
               <div className="absolute top-0 right-0 w-64 h-64 bg-brand-cyan/10 blur-[80px] pointer-events-none" />
               <div className="absolute bottom-0 right-0 w-64 h-64 bg-brand-magenta/10 blur-[80px] pointer-events-none" />
               
@@ -191,7 +196,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
                   </div>
                   <div>
                     <p className="text-sm text-gray-400 mb-0.5">Email Us</p>
-                    <p className="text-[15px] font-semibold text-white break-all">{email}</p>
+                    <p className="text-[13px] sm:text-[15px] font-semibold text-white break-all sm:break-normal break-words">{email}</p>
                   </div>
                 </a>
 
@@ -227,6 +232,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
               </div>
             </div>
           </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

@@ -3,12 +3,15 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import HMLogoSVG from "./shared/HMLogoSVG";
 import { useLogoAnim } from "../context/LogoAnimationContext";
+import { Container } from "./ui/Container";
+import { Button } from "./ui/Button";
 
 interface HeaderProps {
   openContact: () => void;
+  openDemo?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ openContact }) => {
+const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
   const [isOpen,   setIsOpen]   = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
@@ -20,10 +23,8 @@ const Header: React.FC<HeaderProps> = ({ openContact }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const headerClass = `fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-    scrolled
-      ? "bg-black/90 backdrop-blur-md border-b border-brand-indigo/35 shadow-card-md py-1"
-      : "bg-black/60 backdrop-blur-sm border-b border-brand-indigo/15 py-3"
+  const headerClass = `fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-[#0a0a0a] border-b border-white/20 ${
+    scrolled ? "shadow-card-md" : ""
   }`;
 
   const navLinks = [
@@ -35,13 +36,13 @@ const Header: React.FC<HeaderProps> = ({ openContact }) => {
 
   return (
     <header className={headerClass}>
-      <div className="mx-4 flex items-center h-20 px-4 sm:px-6 lg:px-8 transition-all duration-300">
+      <Container className="flex items-center h-16 transition-all duration-300">
 
         {/* ── Logo – magnetic glow + scale on hover ─────────── */}
         <div className="flex-shrink-0" ref={navLogoRef}>
           <Link to="/" className="group flex items-center gap-2" aria-label="HM Coding home">
             <div
-              className="cursor-pointer transition-transform duration-300 md:group-hover:scale-110 md:group-hover:drop-shadow-[0_0_14px_rgba(0,240,255,0.8)]"
+              className="cursor-pointer transition-transform duration-300 sm:group-hover:scale-110 sm:group-hover:drop-shadow-[0_0_14px_rgba(0,240,255,0.8)]"
             >
               <HMLogoSVG
                 uid="nav"
@@ -54,7 +55,7 @@ const Header: React.FC<HeaderProps> = ({ openContact }) => {
         <div className="flex-1" />
 
         {/* ── Desktop nav ───────────────────────────────────── */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden lg:flex items-center space-x-8">
           {navLinks.map((link) => {
             const isActive = pathname === link.path;
             return (
@@ -85,24 +86,24 @@ const Header: React.FC<HeaderProps> = ({ openContact }) => {
           })}
 
           {/* Book Demo CTA */}
-          <motion.button
-            type="button"
-            onClick={openContact}
-            className="rounded-full bg-brand-magenta px-5 py-2 text-sm font-semibold text-white btn-shimmer"
-            whileHover={{ scale: 1.06, boxShadow: "0 0 20px rgba(140,67,123,0.6)" }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: "spring", stiffness: 300, damping: 18 }}
-          >
-            Book Demo
-          </motion.button>
+          <motion.div whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.97 }}>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={openDemo || openContact}
+              className="btn-shimmer bg-brand-magenta from-brand-magenta to-brand-magenta"
+            >
+              Book Demo
+            </Button>
+          </motion.div>
         </nav>
 
         {/* ── Mobile hamburger ──────────────────────────────── */}
-        <div className="md:hidden h-[24px]">
+        <div className="lg:hidden flex items-center">
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="text-gray-300 hover:text-brand-cyan transition-colors focus:outline-none p-0 m-0"
+            className="text-gray-300 hover:text-brand-cyan transition-colors focus:outline-none p-2 -mr-2"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -114,7 +115,8 @@ const Header: React.FC<HeaderProps> = ({ openContact }) => {
             </svg>
           </button>
         </div>
-      </div>
+      
+      </Container>
 
       {/* ── Mobile drawer ─────────────────────────────────────── */}
       <AnimatePresence>
@@ -124,7 +126,7 @@ const Header: React.FC<HeaderProps> = ({ openContact }) => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="md:hidden px-4 pt-2 pb-6 space-y-3 bg-black/95 border-t border-brand-indigo/20 shadow-2xl overflow-hidden"
+            className="lg:hidden px-4 pt-2 pb-6 space-y-3 bg-black/95 border-t border-brand-indigo/20 shadow-2xl overflow-hidden"
           >
             {navLinks.map((link) => {
               const isActive = pathname === link.path;
@@ -141,14 +143,15 @@ const Header: React.FC<HeaderProps> = ({ openContact }) => {
             })}
             <button
               type="button"
-              onClick={() => { openContact(); setIsOpen(false); }}
-              className="block w-full rounded-lg bg-brand-magenta py-2 text-center text-sm font-semibold text-white shadow-neon-magenta/25"
+              onClick={() => { if (openDemo) { openDemo(); } else { openContact(); } setIsOpen(false); }}
+              className="mt-4 flex w-full h-10 items-center justify-center rounded-full bg-gradient-to-r from-brand-cyan to-brand-magenta text-sm font-bold text-white shadow-neon-magenta/25 transition hover:opacity-90"
             >
               Book Demo
             </button>
           </motion.div>
         )}
       </AnimatePresence>
+      
     </header>
   );
 };

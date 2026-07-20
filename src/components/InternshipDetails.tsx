@@ -48,7 +48,7 @@ const InternshipDetails: React.FC<Props> = ({ onSendIdea }) => {
 
         {/* CARDS */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 preserve-3d"
+          className="mx-auto w-full max-w-[380px] md:max-w-none grid grid-cols-1 md:grid-cols-3 gap-8 preserve-3d"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}

@@ -11,6 +11,7 @@ import {
   FinalCta,
   LiveAnalysisSection,
 } from "../components/home";
+import { LazySection } from "../components/shared/LazySection";
 
 interface HomeProps {
   openContact: () => void;
@@ -26,13 +27,34 @@ const Home: React.FC<HomeProps> = ({ openContact }) => {
     >
       <HeroSection openContact={openContact} />
       <LiveAnalysisSection openContact={openContact} />
-      <WhyChooseUs />
-      <ProcessTimeline />
-      <FeaturedProjectsSection />
-      <StatsBar />
-      <TestimonialsSection />
-      <FaqSection openContact={openContact} />
-      <FinalCta openContact={openContact} />
+      
+      <LazySection minHeight="800px">
+        <WhyChooseUs />
+      </LazySection>
+      
+      <LazySection minHeight="800px">
+        <ProcessTimeline />
+      </LazySection>
+      
+      <LazySection minHeight="1000px">
+        <FeaturedProjectsSection />
+      </LazySection>
+      
+      <LazySection minHeight="200px">
+        <StatsBar />
+      </LazySection>
+      
+      <LazySection minHeight="800px">
+        <TestimonialsSection />
+      </LazySection>
+      
+      <LazySection minHeight="600px">
+        <FaqSection openContact={openContact} />
+      </LazySection>
+      
+      <LazySection minHeight="400px">
+        <FinalCta openContact={openContact} />
+      </LazySection>
     </motion.div>
   );
 };

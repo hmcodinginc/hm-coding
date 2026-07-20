@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const images = [
-  "/convetly_slide_1.png",
-  "/convetly_slide_2.png",
-  "/convetly_slide_3.png",
+  "/convetly_slide_1.jpg",
+  "/convetly_slide_2.jpg",
+  "/convetly_slide_3.jpg",
 ];
 
 const features = [
@@ -85,7 +85,7 @@ export const ConvetlyPromotion: React.FC = () => {
           </div>
 
           {/* Right Column: Image Slider with Custom Animations */}
-          <div className="relative h-[400px] w-full rounded-2xl overflow-hidden border border-brand-indigo/30 bg-gray-900 shadow-2xl order-1 lg:order-2">
+          <div className="relative aspect-video w-full max-w-[500px] lg:max-w-none mx-auto rounded-2xl overflow-hidden border border-brand-indigo/30 bg-gray-900 shadow-2xl order-1 lg:order-2">
             <AnimatePresence mode="wait">
               <motion.img
                 key={currentIndex}

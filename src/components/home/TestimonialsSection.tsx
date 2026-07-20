@@ -1,71 +1,49 @@
 import { SectionHeader } from "./SectionHeader";
 import { TestimonialCarousel } from "../shared/TestimonialCarousel";
-// import { useJsonData } from "../../hooks/useJsonData";
 import { supabase } from "../../lib/supabase";
 import type { Review } from "../../types/review";
-import { useEffect, useState } from "react";
-
-// type TestimonialsData = {
-//   eyebrow: string;
-//   title: string;
-//   items: {
-//     quote: string;
-//     name: string;
-//     role: string;
-//     initials: string;
-//     rating: number;
-//   }[];
-// };
-
-// const TESTIMONIALS_FALLBACK: TestimonialsData = {
-//   eyebrow: "TESTIMONIALS",
-//   title: "What Our Clients Say",
-//   items: [
-//     {
-//       quote:
-//         "HM Coding transformed our operations with a custom CRM that our team actually enjoys using.",
-//       name: "Sarah Johnson",
-//       role: "CEO, HealthPlus",
-//       initials: "SJ",
-//       rating: 5,
-//     },
-//   ],
-// };
+import { useEffect, useState, useRef } from "react";
+import { useInView } from "framer-motion";
 
 export function TestimonialsSection() {
- const [loading, setLoading] = useState(true);
-const [userReviews, setUserReviews] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [userReviews, setUserReviews] = useState<Review[]>([]);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "200px" });
 
-useEffect(() => {
-  const fetchReviews = async () => {
-    const { data, error } = await supabase
-      .from("reviews")
-      .select("*")
-      .eq("approved", true)
-      .order("created_at", { ascending: false });
+  useEffect(() => {
+    if (!isInView) return;
 
-    if (error) {
-      console.error(error);
-      return;
-    }
+    const fetchReviews = async () => {
+      const { data, error } = await supabase
+        .from("reviews")
+        .select("*")
+        .eq("approved", true)
+        .order("created_at", { ascending: false });
 
-    const reviews: Review[] = (data || []).map((r) => ({
-      id: r.id,
-      name: r.name,
-      email: r.email || "",
-      role: r.role || "",
-      initials: r.initials || "",
-      rating: r.rating || 5,
-      text: r.review_text,
-      timestamp: r.created_at,
-    }));
+      if (error) {
+        console.error(error);
+        setLoading(false);
+        return;
+      }
 
-    setUserReviews(reviews);
-    setLoading(false);
-  };
+      const reviews: Review[] = (data || []).map((r) => ({
+        id: r.id,
+        name: r.name,
+        email: r.email || "",
+        role: r.role || "",
+        initials: r.initials || "",
+        rating: r.rating || 5,
+        text: r.review_text,
+        timestamp: r.created_at,
+      }));
 
-  fetchReviews();
-}, []);
+      setUserReviews(reviews);
+      setLoading(false);
+    };
+
+    fetchReviews();
+  }, [isInView]);
 
 const handleAddReview = () => {
   // no-op for now
@@ -79,7 +57,7 @@ const mergedItems = userReviews.map((r) => ({
   rating: r.rating,
 }));
   return (
-    <section className="bg-brand-black py-20">
+    <section ref={ref} className="bg-brand-black py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-6">
       <SectionHeader
   eyebrow="TESTIMONIALS"

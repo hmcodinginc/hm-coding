@@ -68,7 +68,7 @@ setJobs(formattedJobs);
       <div className="absolute inset-0 bg-grid-faint pointer-events-none" />
 
       {/* HERO */}
-      <section className="relative overflow-hidden py-24 border-b border-brand-indigo/10 perspective-3d preserve-3d">
+      <section className="relative overflow-hidden py-10 sm:py-24 border-b border-brand-indigo/10 perspective-3d preserve-3d">
         {/* 3D Glassmorphic Floating Orbs */}
         <div className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full bg-brand-cyan/10 blur-3xl pointer-events-none animate-float-orb-slow" style={{ transform: "translateZ(-40px)" }} />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-brand-magenta/5 blur-3xl pointer-events-none animate-float-orb-delayed" style={{ transform: "translateZ(-60px)" }} />
@@ -83,6 +83,21 @@ setJobs(formattedJobs);
             Join us to work on real-world projects, build impactful products,
             and grow with hands-on experience.
           </p>
+
+          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4 relative z-10" style={{ transform: "translateZ(20px)" }}>
+            <button
+              onClick={openContact}
+              className="inline-flex w-max mx-auto sm:mx-0 items-center justify-center rounded-full bg-gradient-to-r from-brand-cyan to-brand-magenta px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_20px_rgba(62,195,202,0.3)] transition hover:opacity-95 hover:shadow-[0_0_30px_rgba(62,195,202,0.5)]"
+            >
+              Internship
+            </button>
+            <button
+              onClick={openStartupContact}
+              className="inline-flex w-max mx-auto sm:mx-0 items-center justify-center rounded-full bg-brand-surface border border-brand-cyan/30 px-8 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-brand-cyan/10"
+            >
+              Startup Idea
+            </button>
+          </div>
         </div>
       </section>
 
@@ -97,7 +112,7 @@ setJobs(formattedJobs);
 
       {/* JOBS */}
       <Scroll3DWrapper>
-        <section className="py-24 bg-brand-black/40 border-t border-brand-indigo/10">
+        <section className="py-10 sm:py-24 bg-brand-black/40 border-t border-brand-indigo/10">
           <div className="max-w-6xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-extrabold text-center text-white mb-16 font-display tracking-tight">
               Current <span className="text-gradient-brand">Openings</span>
@@ -117,7 +132,7 @@ setJobs(formattedJobs);
 
             {!loading && jobs.length > 0 && (
               <motion.div 
-                className="grid grid-cols-1 md:grid-cols-2 gap-8 preserve-3d"
+                className="mx-auto w-full max-w-[380px] md:max-w-none grid grid-cols-1 md:grid-cols-2 gap-8 preserve-3d"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}

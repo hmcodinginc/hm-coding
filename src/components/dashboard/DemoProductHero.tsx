@@ -4,6 +4,9 @@ import { heroPanelHover } from "../../animations/motion";
 import { DashboardCard } from "./DashboardPrimitives";
 import { dashboardShell } from "./dashboardShell";
 import type { DemoHeroContent, DemoHeroInsight } from "../../types/demoHeroTypes";
+import { Section } from "../ui/Section";
+import { Heading, Text } from "../ui/Typography";
+import { Button } from "../ui/Button";
 
 export type DemoProductHeroProps = {
   gradientClassName: string;
@@ -31,11 +34,11 @@ export function DemoProductHero({
   previewEyebrow = "Live workflow",
 }: DemoProductHeroProps) {
   return (
-    <section className={`overflow-hidden rounded-3xl p-4 text-white sm:p-6 lg:p-8 ${gradientClassName} ${shadowClassName}`}>
-      <div className="mx-auto grid max-w-6xl gap-5 sm:gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-8">
-        <div className="space-y-4 sm:space-y-5 lg:space-y-6">
+    <Section paddingSpacing="sm" containerFluid className={`overflow-hidden rounded-b-3xl text-white ${gradientClassName} ${shadowClassName}`}>
+      <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left space-y-4 sm:space-y-6">
           <motion.div
-            className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-xs font-semibold backdrop-blur sm:gap-2 sm:px-4 sm:py-2 sm:text-sm"
+            className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-[10px] sm:text-xs font-semibold backdrop-blur sm:gap-2 sm:px-4 sm:py-2"
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -43,40 +46,31 @@ export function DemoProductHero({
             <span className="text-white/75">{content.badgeLead}</span>
             <span className={`rounded-full bg-white/20 px-2 py-1 ${badgeTagClassName}`}>{content.badgeTag}</span>
           </motion.div>
-          <motion.h1
-            className="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl lg:text-[3.25rem] lg:leading-tight"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.08, duration: 0.5 }}
-          >
-            {content.title}
-          </motion.h1>
-          <motion.p
-            className={`max-w-xl text-sm sm:text-base md:text-lg lg:text-xl ${descriptionClassName}`}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.16, duration: 0.5 }}
-          >
-            {content.description}
-          </motion.p>
+
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08, duration: 0.5 }}>
+            <Heading level={1} className="w-full">
+              {content.title}
+            </Heading>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.16, duration: 0.5 }}>
+            <Text variant="lead" className={`w-full sm:max-w-xl ${descriptionClassName}`}>
+              {content.description}
+            </Text>
+          </motion.div>
+
           <motion.div
-            className="grid w-full gap-2.5 sm:max-w-md sm:grid-cols-2 sm:gap-3"
+            className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row pt-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.24, duration: 0.5 }}
           >
-            <button
-              type="button"
-              className="rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-slate-900 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-900/10 sm:rounded-2xl sm:px-6 sm:py-3"
-            >
+            <Button variant="primary" size="md" className="w-auto sm:w-56 text-slate-900 bg-white">
               {content.primaryCta}
-            </button>
-            <button
-              type="button"
-              className="rounded-xl border border-white/40 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/20 sm:rounded-2xl sm:px-6 sm:py-3"
-            >
+            </Button>
+            <Button variant="outline" size="md" className="w-auto sm:w-56 border-white/40 text-white bg-white/10 hover:bg-white/20">
               {content.secondaryCta}
-            </button>
+            </Button>
           </motion.div>
         </div>
 
@@ -108,6 +102,6 @@ export function DemoProductHero({
           </motion.div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

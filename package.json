@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
+    "@playwright/test": "^1.61.1",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.4",
@@ -40,6 +41,7 @@
     "globals": "^16.4.0",
     "nodemon": "^3.1.11",
     "postcss": "^8.4.31",
+    "rollup-plugin-visualizer": "^7.0.1",
     "tailwindcss": "^3.3.3",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",

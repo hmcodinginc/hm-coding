@@ -22,7 +22,7 @@ const About: React.FC<AboutProps> = ({ openContact }) => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       {/* Hero Section */}
-      <section className="relative bg-brand-black overflow-hidden py-20 md:py-28 border-b border-brand-indigo/10 perspective-3d preserve-3d">
+      <section className="relative bg-brand-black overflow-hidden py-10 md:py-28 border-b border-brand-indigo/10 perspective-3d preserve-3d">
         <div className="absolute inset-0 bg-hero-glow-about pointer-events-none" />
         <div className="absolute inset-0 bg-grid-faint pointer-events-none" />
         
@@ -45,9 +45,9 @@ const About: React.FC<AboutProps> = ({ openContact }) => {
               {hero.tagline}
             </p>
 
-            <div className="flex flex-col sm:flex-row justify-center md:justify-start gap-4 pt-2">
+            <div className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4 pt-2">
               <motion.button
-                className="px-6 py-3 bg-brand-cyan text-brand-black font-semibold rounded-full shadow-neon-cyan btn-shimmer hover:opacity-90 transition-opacity"
+                className="px-4 py-2.5 min-h-[48px] w-max sm:w-auto bg-brand-cyan text-brand-black text-sm font-semibold rounded-full shadow-neon-cyan btn-shimmer hover:opacity-90 transition-opacity"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => navigate("/services")}
@@ -56,7 +56,7 @@ const About: React.FC<AboutProps> = ({ openContact }) => {
               </motion.button>
 
               <motion.button
-                className="px-6 py-3 border border-brand-magenta text-white font-semibold rounded-full hover:bg-brand-magenta/10 hover:shadow-neon-magenta transition-all duration-300"
+                className="px-4 py-2.5 min-h-[48px] w-max sm:w-auto border border-brand-magenta text-white text-sm font-semibold rounded-full hover:bg-brand-magenta/10 hover:shadow-neon-magenta transition-all duration-300"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={openContact}
@@ -90,7 +90,7 @@ const About: React.FC<AboutProps> = ({ openContact }) => {
       </section>
 
       {/* Who We Are */}
-      <section className="py-20 bg-brand-black/40 border-b border-brand-indigo/10 relative">
+      <section className="py-10 sm:py-20 bg-brand-black/40 border-b border-brand-indigo/10 relative">
         <div className="absolute inset-0 bg-grid-faint pointer-events-none opacity-50" />
         <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
           <motion.span 
@@ -125,7 +125,7 @@ const About: React.FC<AboutProps> = ({ openContact }) => {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-brand-black relative overflow-hidden perspective-3d preserve-3d">
+      <section className="py-10 sm:py-20 bg-brand-black relative overflow-hidden perspective-3d preserve-3d">
         <div className="absolute inset-0 bg-hero-glow pointer-events-none opacity-30" />
         <motion.div
           className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10 preserve-3d"
@@ -169,7 +169,7 @@ const About: React.FC<AboutProps> = ({ openContact }) => {
 
       {/* Values */}
       <section 
-        className="py-20 bg-brand-black/60 border-t border-brand-indigo/10"
+        className="py-10 sm:py-20 bg-brand-black/60 border-t border-brand-indigo/10"
       >
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
