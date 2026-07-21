@@ -78,7 +78,7 @@ export function ReviewForm({ onAddReview }: ReviewFormProps) {
           placeholder="Your Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="rounded border border-gray-600 bg-brand-surface px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+          className="w-full rounded border border-gray-600 bg-brand-surface px-4 py-2.5 min-h-[48px] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-cyan"
           required
         />
         <input
@@ -86,13 +86,13 @@ export function ReviewForm({ onAddReview }: ReviewFormProps) {
           placeholder="Your Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="rounded border border-gray-600 bg-brand-surface px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+          className="w-full rounded border border-gray-600 bg-brand-surface px-4 py-2.5 min-h-[48px] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-cyan"
           required
         />
         <select
           value={role}
           onChange={(e) => setRole(e.target.value)}
-          className="rounded border border-gray-600 bg-brand-surface px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+          className="w-full rounded border border-gray-600 bg-brand-surface px-4 py-2.5 min-h-[48px] text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan"
           required
         >
           <option value="" disabled>Select Role</option>
@@ -109,14 +109,14 @@ export function ReviewForm({ onAddReview }: ReviewFormProps) {
             placeholder="Specify your role"
             value={otherRole}
             onChange={(e) => setOtherRole(e.target.value)}
-            className="rounded border border-gray-600 bg-brand-surface px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+            className="w-full rounded border border-gray-600 bg-brand-surface px-4 py-2.5 min-h-[48px] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-cyan"
             required
           />
         )}
         <select
           value={rating}
           onChange={(e) => setRating(Number(e.target.value))}
-          className="rounded border border-gray-600 bg-brand-surface px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+          className="w-full rounded border border-gray-600 bg-brand-surface px-4 py-2.5 min-h-[48px] text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan"
         >
           {[5, 4, 3, 2, 1].map((r) => (
             <option key={r} value={r}>
@@ -129,13 +129,13 @@ export function ReviewForm({ onAddReview }: ReviewFormProps) {
         placeholder="Your testimonial..."
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="mt-4 w-full rounded border border-gray-600 bg-brand-surface px-3 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-cyan"
+        className="mt-4 w-full rounded border border-gray-600 bg-brand-surface px-4 py-3 min-h-[120px] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-cyan"
         rows={4}
         required
       />
       <button
         type="submit"
-        className="mt-4 rounded bg-brand-cyan px-5 py-2 font-semibold text-black transition hover:bg-brand-cyan/80"
+        className="mt-4 rounded bg-brand-cyan px-6 py-2.5 min-h-[48px] text-sm font-semibold text-black transition hover:bg-brand-cyan/80"
       >
         Submit Review
       </button>

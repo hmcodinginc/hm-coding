@@ -51,6 +51,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     visual: "💼",
     imageSrc: "/project-images/gym.jpg",
     imageAlt: "Gym Management Dashboard",
+    directLink: "https://fitflow.hmcoding.com/",
   },
   {
     slug: "inventory-system",
@@ -78,6 +79,20 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     imageSrc: "/project-images/real-state.png",
     imageAlt: "Real Estate CRM Dashboard",
   },
+  {
+    slug: "convertly",
+    title: "Convertly",
+    shortDescription:
+      "Monitor conversion health, prioritize fixes, and track audit outcomes across your funnel.",
+    category: "Analytics & Growth",
+    tags: ["React", "TypeScript", "Tailwind", "Analytics"],
+    status: "live",
+    accentGradient: "bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600",
+    visual: "📈",
+    imageSrc: "/project-images/Convertly_project.png",
+    imageAlt: "Convertly Dashboard",
+    directLink: "https://convertly.hmcoding.com/",
+  },
 ] as const;
 
 const projectBySlug = new Map(portfolioProjects.map((p) => [p.slug, p]));
@@ -91,7 +106,7 @@ export function isKnownPortfolioSlug(slug: string): boolean {
 }
 
 /** Homepage spotlight — order defines card order (must exist on `portfolioProjects`). */
-export const homeFeaturedProjectSlugs = ["client-reminder-crm", "restaurant-pos", "gym-management"] as const;
+export const homeFeaturedProjectSlugs = ["convertly", "client-reminder-crm", "restaurant-pos"] as const;
 
 export function getHomeFeaturedProjects(): PortfolioProject[] {
   const bySlug = new Map(portfolioProjects.map((p) => [p.slug, p]));
@@ -105,7 +120,6 @@ export function getHomeFeaturedProjects(): PortfolioProject[] {
 export const portfolioFullDemoSlugs = [
   "client-reminder-crm",
   "restaurant-pos",
-  "gym-management",
   "inventory-system",
   "real-estate-crm",
 ] as const;

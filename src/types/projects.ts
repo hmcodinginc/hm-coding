@@ -14,8 +14,12 @@ export type PortfolioProject = {
   /** Responsive preview image from public/project-images or an external URL. */
   imageSrc?: string;
   imageAlt?: string;
+  /** Extra CSS classes for the image (e.g. for scaling or positioning) */
+  imageClassName?: string;
   /** Optional public demo (external). */
   externalDemoUrl?: string;
+  /** Optional direct external link to override the View Project button. */
+  directLink?: string;
   /** Optional case study or article (future). */
   caseStudyUrl?: string;
 };

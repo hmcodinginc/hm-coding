@@ -130,7 +130,8 @@ export const landingFooterContent = {
   ],
   companyLinks: [
     { label: "About", to: "/about" as const },
-    { label: "Contact", action: "contact" as const },
     { label: "Book Demo", action: "contact" as const },
+    { label: "Terms & Conditions", to: "/terms" as const },
+    { label: "Privacy Policy", to: "/privacy" as const },
   ] as const,
 };

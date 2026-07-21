@@ -83,11 +83,11 @@ export const LiveAnalysisSection: React.FC<Live> = ({ openContact }) => {
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative w-full bg-brand-black py-20 md:py-32 overflow-hidden border-y border-brand-indigo/10"
+      className="relative w-full bg-brand-black py-16 md:py-24 overflow-hidden border-y border-brand-indigo/10"
     >
       {/* Background Glows */}
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-cyan/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-magenta/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[150%] sm:w-[80%] max-w-[600px] aspect-square bg-brand-cyan/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[150%] sm:w-[80%] max-w-[600px] aspect-square bg-brand-magenta/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16 flex flex-col lg:flex-row items-center gap-16 lg:gap-24 relative z-10">
         
@@ -145,9 +145,9 @@ export const LiveAnalysisSection: React.FC<Live> = ({ openContact }) => {
           </div>
 
           {/* Headline & CTA */}
-          <div className="min-h-[160px]">
+          <div className="min-h-[160px] flex flex-col items-start text-left">
             <motion.h2 
-              className="text-4xl md:text-5xl font-display font-bold text-white mb-6 leading-tight"
+              className="text-3xl md:text-4xl font-display font-bold text-white mb-6 leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: phase === "complete" ? 1 : 0, y: phase === "complete" ? 0 : 20 }}
               transition={{ duration: 0.6 }}
@@ -160,58 +160,59 @@ export const LiveAnalysisSection: React.FC<Live> = ({ openContact }) => {
               animate={{ opacity: phase === "complete" ? 1 : 0, scale: phase === "complete" ? 1 : 0.95 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-             <div className="flex flex-col sm:flex-row gap-4 items-center justify-start w-full">
-
-              <button 
-    onClick={openContact} 
-    className="group relative inline-flex items-center justify-center gap-5 rounded-full bg-white px-8 py-4 text-[15px] font-bold text-black transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] w-full sm:w-auto overflow-hidden"
-  >
-    Contact us
-  </button>
-  <button
-    onClick={() => window.open('https://convertly.hmcoding.com/', '_blank')}
-    className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-[15px] font-bold text-black transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] w-full sm:w-auto overflow-hidden"
-  >
-    <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan/20 to-brand-magenta/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-    <span className="relative z-10">Get Free Website Analysis</span>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-    </svg>
-  </button>
-
-  
-</div>
+              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-start w-full">
+                <button 
+                  onClick={openContact} 
+                  className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-[15px] font-bold text-black transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] w-full sm:w-auto overflow-hidden border border-transparent"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan/20 to-brand-magenta/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <span className="relative z-10">Contact us</span>
+                </button>
+              </div>
             </motion.div>
           </div>
         </div>
 
         {/* Right Dashboard Visual */}
         <div className="flex-1 w-full flex justify-center lg:justify-end relative perspective-1000 order-1 lg:order-2">
-          <motion.div
-            initial={{ opacity: 0, rotateY: -10, rotateX: 5 }}
-            animate={{ 
-              opacity: isInView ? 1 : 0,
-              rotateY: isInView ? mousePosition.x * 10 : -10,
-              rotateX: isInView ? mousePosition.y * -10 : 5,
-            }}
-            transition={{ type: "spring", stiffness: 50, damping: 20 }}
-            className="relative rounded-2xl p-1 bg-gradient-to-b from-white/10 to-transparent w-full max-w-lg shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform-gpu"
-          >
-            {/* Neon Border Glow */}
-            <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-brand-cyan via-brand-indigo to-brand-magenta opacity-30 blur-sm pointer-events-none" />
-            
-            <div className="relative rounded-xl overflow-hidden bg-brand-black border border-white/5 aspect-[4/3]">
-              <img 
-                src="/images/convertly_dashboard.png" 
-                alt="Convertly Dashboard Preview" 
-                className="w-full h-full object-cover opacity-90"
-              />
+          <div className="flex flex-col items-center gap-8 w-full max-w-lg">
+            <motion.div
+              initial={{ opacity: 0, rotateY: -10, rotateX: 5 }}
+              animate={{ 
+                opacity: isInView ? 1 : 0,
+                rotateY: isInView ? mousePosition.x * 10 : -10,
+                rotateX: isInView ? mousePosition.y * -10 : 5,
+              }}
+              transition={{ type: "spring", stiffness: 50, damping: 20 }}
+              className="relative rounded-2xl p-1 bg-gradient-to-b from-white/10 to-transparent w-full shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform-gpu"
+            >
+              {/* Neon Border Glow */}
+              <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-brand-cyan via-brand-indigo to-brand-magenta opacity-30 blur-sm pointer-events-none" />
               
-              {/* Scan Line Animation Overlay */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-brand-cyan shadow-[0_0_15px_#44b0ba] opacity-0 animate-scan-line pointer-events-none" />
-              <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-brand-cyan/20 opacity-0 animate-scan-glow pointer-events-none" />
-            </div>
-          </motion.div>
+              <div className="relative rounded-xl overflow-hidden bg-brand-black border border-white/5 aspect-[4/3]">
+                <img 
+                  src="/images/convertly_dashboard.jpg" 
+                  alt="Convertly Dashboard Preview" 
+                  className="w-full h-full object-cover opacity-90"
+                />
+                
+                {/* Scan Line Animation Overlay */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-brand-cyan shadow-[0_0_15px_#44b0ba] opacity-0 animate-scan-line pointer-events-none" />
+                <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-brand-cyan/20 opacity-0 animate-scan-glow pointer-events-none" />
+              </div>
+            </motion.div>
+
+            <button
+              onClick={() => window.open('https://convertly.hmcoding.com/', '_blank')}
+              className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-[15px] font-bold text-black transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] w-full sm:w-auto overflow-hidden border border-transparent z-20"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-brand-cyan/20 to-brand-magenta/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <span className="relative z-10">Get Free Website Analysis</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4 relative z-10 transition-transform group-hover:translate-x-1">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </button>
+          </div>
         </div>
 
       </div>

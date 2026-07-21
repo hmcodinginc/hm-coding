@@ -11,7 +11,7 @@ export function FeaturedProjectsSection() {
   const { eyebrow, title, description, ctaLabel } = featuredProjectsContent;
 
   return (
-    <section className="bg-brand-black py-20">
+    <section className="bg-brand-black py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-10 flex flex-col items-center justify-between gap-6 md:flex-row md:items-end">
           <SectionHeader
@@ -23,14 +23,14 @@ export function FeaturedProjectsSection() {
           />
           <Link
             to="/projects"
-            className="inline-flex shrink-0 items-center justify-center rounded-lg bg-gradient-to-r from-brand-cyan to-brand-magenta px-6 py-3 text-sm font-semibold text-white shadow-md transition hover:opacity-95"
+            className="inline-flex w-max sm:w-auto shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-brand-cyan to-brand-magenta px-4 py-2.5 min-h-[48px] text-sm font-semibold text-white shadow-md transition hover:opacity-95"
           >
             {ctaLabel}
           </Link>
         </div>
 
         <motion.div
-          className="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3"
+          className="mx-auto w-full max-w-[380px] md:max-w-none grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}

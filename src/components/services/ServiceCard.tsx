@@ -30,7 +30,7 @@ export function ServiceCard({
         {icon}
       </div>
       <h3 className="mb-3 font-display text-2xl font-bold text-white">{title}</h3>
-      <p className="text-sm leading-relaxed text-gray-400 max-w-[200px]">{description}</p>
+      <p className="text-sm leading-relaxed text-gray-400 w-full max-w-[240px] sm:max-w-[280px]">{description}</p>
     </button>
   );
 }

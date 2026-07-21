@@ -9,10 +9,10 @@ export function FinalCta({ openContact }: FinalCtaProps) {
   const { title, description, buttonLabel } = finalCtaContent;
 
   return (
-    <section className="bg-brand-black py-20">
+    <section className="bg-brand-black py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
-          className="mx-auto max-w-4xl rounded-2xl bg-brand-gradient p-10 text-center md:p-14"
+          className="mx-auto w-full max-w-[380px] md:max-w-4xl rounded-2xl bg-brand-gradient p-6 sm:p-10 text-center md:p-14"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -22,11 +22,11 @@ export function FinalCta({ openContact }: FinalCtaProps) {
           <p className="mt-4 text-lg text-white/85">{description}</p>
           <button
             type="button"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-bold text-brand-magenta transition hover:opacity-95"
+            className="mt-8 inline-flex items-center w-full max-w-[260px] sm:max-w-none sm:w-auto h-[52px] sm:h-[60px] mx-auto justify-center gap-2 rounded-full bg-white px-6 sm:px-8 text-sm sm:text-base font-bold text-brand-magenta transition hover:opacity-95"
             onClick={openContact}
           >
             {buttonLabel}
-            <span aria-hidden>→</span>
+            <span className="shrink-0" aria-hidden>→</span>
           </button>
         </motion.div>
       </div>

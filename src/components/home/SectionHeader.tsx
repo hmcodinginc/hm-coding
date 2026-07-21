@@ -23,7 +23,7 @@ export function SectionHeader({
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`max-w-3xl mb-14 ${alignClass} ${className}`}
+      className={`max-w-3xl mb-8 sm:mb-14 ${alignClass} ${className}`}
     >
       <motion.p 
         className="section-eyebrow text-brand-magenta"
@@ -35,9 +35,9 @@ export function SectionHeader({
         {eyebrow}
       </motion.p>
       
-      <div className="relative inline-block mt-3 pb-3">
+      <div className="relative inline-block mt-3 pb-3 px-1 -mx-1">
         <motion.h2 
-          className="font-display text-3xl font-extrabold text-white md:text-4xl tracking-tight"
+          className="font-display text-2xl font-extrabold text-white sm:text-3xl lg:text-4xl tracking-tight"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

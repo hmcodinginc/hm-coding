@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { AnimatePresence } from "framer-motion";
 
 import Header from "./components/Header";
 import { LandingFooter } from "./components/home/LandingFooter";
@@ -7,37 +8,38 @@ import ContactCard from "./components/ContactCard";
 import ScrollToTop from "./components/ScrollToTop";
 
 import Home from "./pages/Home";
-import About from "./pages/About";
-import Services from "./pages/Services";
-import Careers from "./pages/Career";
-import Projects from "./pages/Projects";
-import ProjectDemoEntry from "./pages/ProjectDemoEntry";
+
+const About = lazy(() => import("./pages/About"));
+const Services = lazy(() => import("./pages/Services"));
+const Careers = lazy(() => import("./pages/Career"));
+const Projects = lazy(() => import("./pages/Projects"));
+const ProjectDemoEntry = lazy(() => import("./pages/ProjectDemoEntry"));
+const TermsAndConditions = lazy(() => import("./pages/TermsAndConditions"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 
 import { ContactModalProvider } from "./context/ContactModalProvider";
 import { LogoAnimationProvider } from "./context/LogoAnimationContext";
 import { useGlobalLoader } from "./context/GlobalLoaderContext";
-
 import { GlobalBackground } from "./components/shared/GlobalBackground";
-
-import Login from "./admin/pages/Login";
 import ProtectedRoute from "./admin/routes/ProtectedRoute";
-import AdminLayout from "./admin/components/AdminLayout";
-import DashboardHome from "./admin/modules/DashboardHome";
-import ContactMessages from "./admin/modules/ContactMessages";
-import Reviews from "./admin/modules/Reviews";
-import Jobs from "./admin/modules/Jobs";
-import Applications from "./admin/modules/Applications";
+
+const Login = lazy(() => import("./admin/pages/Login"));
+const AdminLayout = lazy(() => import("./admin/components/AdminLayout"));
+const DashboardHome = lazy(() => import("./admin/modules/DashboardHome"));
+const ContactMessages = lazy(() => import("./admin/modules/ContactMessages"));
+const Reviews = lazy(() => import("./admin/modules/Reviews"));
+const Jobs = lazy(() => import("./admin/modules/Jobs"));
+const Applications = lazy(() => import("./admin/modules/Applications"));
 
 export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [contactType, setContactType] = useState<
-    "general" | "career" | "startup"
+    "general" | "career" | "startup" | "demo"
   >("general");
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const isHome = pathname === "/";
   const isAdminRoute = pathname.startsWith("/hm-portal-admin-dashboard");
 
   const { showLoader, hideLoader } = useGlobalLoader();
@@ -103,6 +105,11 @@ export default function App() {
     setIsContactOpen(true);
   };
 
+  const openDemo = () => {
+    setContactType("demo");
+    setIsContactOpen(true);
+  };
+
   const openCareerContact = () => {
     setContactType("career");
     setIsContactOpen(true);
@@ -117,11 +124,11 @@ export default function App() {
 
   return (
     <LogoAnimationProvider>
-      <ContactModalProvider openContact={openContact}>
+      <ContactModalProvider openContact={openContact} openDemo={openDemo}>
         <div className="relative flex min-h-screen flex-col overflow-x-hidden">
           <GlobalBackground />
 
-          {!isAdminRoute && <Header openContact={openContact} />}
+          {!isAdminRoute && <Header openContact={openContact} openDemo={openDemo} />}
 
           <ScrollToTop />
 
@@ -129,13 +136,13 @@ export default function App() {
             className={`relative z-10 flex-grow ${
               isAdminRoute
                 ? ""
-                : isHome
-                ? "pb-0 pt-16"
-                : "pb-24 pt-24"
+                : "pt-16 pb-0"
             }`}
           >
-            <Routes>
-              <Route
+            <AnimatePresence mode="wait">
+              <Suspense fallback={<div className="min-h-screen bg-brand-black w-full" />}>
+                <Routes location={{ pathname }} key={pathname}>
+                  <Route
                 path="/"
                 element={<Home openContact={openContact} />}
               />
@@ -171,6 +178,16 @@ export default function App() {
               />
 
               <Route
+                path="/terms"
+                element={<TermsAndConditions />}
+              />
+
+              <Route
+                path="/privacy"
+                element={<PrivacyPolicy />}
+              />
+
+              <Route
                 path="/hm-portal-admin-dashboard/login"
                 element={<Login />}
               />
@@ -188,12 +205,14 @@ export default function App() {
                 <Route path="reviews" element={<Reviews />} />
                 <Route path="jobs" element={<Jobs />} />
                 <Route path="applications" element={<Applications />} />
-              </Route>
-            </Routes>
+                </Route>
+                </Routes>
+              </Suspense>
+            </AnimatePresence>
           </main>
 
           {!isAdminRoute && (
-            <LandingFooter openContact={openContact} />
+            <LandingFooter openContact={openContact} openDemo={openDemo} />
           )}
 
           {!isAdminRoute && (

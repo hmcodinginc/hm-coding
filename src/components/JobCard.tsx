@@ -2,6 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import type { Job } from "../types/jobs";
 import { TiltCard } from "./shared/TiltCard";
+import { Card, CardContent, CardFooter } from "./ui/Card";
+import { Heading, Text } from "./ui/Typography";
+import { Button } from "./ui/Button";
 
 interface JobCardProps {
   job: Job;
@@ -10,17 +13,14 @@ interface JobCardProps {
 const JobCard: React.FC<JobCardProps> = ({ job }) => {
   return (
     <TiltCard className="h-full preserve-3d" maxRotation={10}>
-      <div className="group relative h-full card-surface p-6 flex flex-col justify-between transition-all duration-300 overflow-hidden preserve-3d">
-        {/* Glowing neon outline that tracks card edges */}
-        <div className="absolute inset-0 border border-transparent group-hover:border-brand-magenta/40 rounded-2xl transition-colors duration-300 pointer-events-none" />
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm border border-brand-magenta/60 rounded-2xl pointer-events-none" />
+      <Card className="h-full group hover:border-brand-magenta/40 hover:shadow-[0_0_15px_rgba(225,0,255,0.3)]">
 
-        <div className="preserve-3d">
-          <h3 className="text-xl font-bold text-white mb-3 font-display relative z-10" style={{ transform: "translateZ(20px)" }}>
+        <CardContent className="preserve-3d flex flex-col">
+          <Heading level={3} className="text-white mb-2 line-clamp-2" style={{ transform: "translateZ(30px)" } as React.CSSProperties}>
             {job.title}
-          </h3>
+          </Heading>
 
-          <div className="text-xs text-brand-lavender space-y-1.5 mb-4 relative z-20 font-semibold uppercase tracking-wider" style={{ transform: "translateZ(15px)" }}>
+          <div className="text-[10px] sm:text-xs text-brand-lavender space-y-1.5 mb-4 relative z-20 font-semibold uppercase tracking-wider" style={{ transform: "translateZ(15px)" }}>
             <p>📍 {job.location}</p>
             {job.experience && <p>💼 {job.experience}</p>}
             <p>⏱ {job.type}</p>
@@ -28,24 +28,28 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
             {job.salary && <p>💰 {job.salary}</p>}
           </div>
 
-          <p className="text-gray-300 text-sm leading-relaxed relative z-10" style={{ transform: "translateZ(10px)" }}>
+          <Text className="text-gray-400 text-sm mb-4 line-clamp-3" style={{ transform: "translateZ(20px)" } as React.CSSProperties}>
             {job.description}
-          </p>
-        </div>
+          </Text>
+        </CardContent>
 
-        <motion.a
-          href={job.applyUrl || "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-6 inline-block text-center px-6 py-3 bg-brand-cyan text-brand-black rounded-full font-bold relative z-30 shadow-neon-cyan btn-shimmer cursor-pointer pointer-events-auto"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ duration: 0.2 }}
-          style={{ transform: "translateZ(20px)" }}
-        >
-          Apply Now
-        </motion.a>
-      </div>
+        <CardFooter className="pt-2">
+          <motion.a
+            href={job.applyUrl || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full relative z-30 pointer-events-auto"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            style={{ transform: "translateZ(20px)" }}
+          >
+            <Button variant="primary" size="sm" className="w-auto bg-brand-cyan text-brand-black shadow-neon-cyan btn-shimmer">
+              Apply Now
+            </Button>
+          </motion.a>
+        </CardFooter>
+      </Card>
     </TiltCard>
   );
 };

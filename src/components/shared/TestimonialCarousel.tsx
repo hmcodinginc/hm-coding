@@ -48,7 +48,7 @@ export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselP
       <button
         type="button"
         onClick={prev}
-        className="hidden sm:flex absolute -left-4 top-1/2 z-10 h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-brand-indigo/30 bg-brand-surface text-brand-cyan transition hover:border-brand-cyan md:-left-14"
+        className="hidden lg:flex absolute -left-4 top-1/2 z-10 h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-brand-indigo/30 bg-brand-surface text-brand-cyan transition hover:border-brand-cyan md:-left-14"
         aria-label="Previous testimonial"
       >
         ←
@@ -57,7 +57,7 @@ export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselP
       <button
         type="button"
         onClick={next}
-        className="hidden sm:flex absolute -right-4 top-1/2 z-10 h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-brand-indigo/30 bg-brand-surface text-brand-cyan transition hover:border-brand-cyan md:-right-14"
+        className="hidden lg:flex absolute -right-4 top-1/2 z-10 h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-brand-indigo/30 bg-brand-surface text-brand-cyan transition hover:border-brand-cyan md:-right-14"
         aria-label="Next testimonial"
       >
         →
@@ -67,7 +67,15 @@ export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselP
         {index < items.length ? (
           <motion.div
             key={index}
-            className="card-surface p-6 sm:p-8 text-center md:p-10 min-h-[300px] flex flex-col justify-center"
+            className="card-surface p-6 sm:p-8 text-center md:p-10 min-h-[300px] flex flex-col justify-center cursor-grab active:cursor-grabbing"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(_, { offset }) => {
+              const swipe = offset.x;
+              if (swipe < -50) next();
+              else if (swipe > 50) prev();
+            }}
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
@@ -96,7 +104,16 @@ export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselP
         ) : (
           <motion.div
             key="add-review"
-            className="card-surface p-4 sm:p-8 text-center md:p-10 min-h-[300px] flex flex-col items-center justify-center w-full overflow-y-auto max-h-[85vh] sm:max-h-none"
+            className={`card-surface p-4 sm:p-8 text-center md:p-10 min-h-[300px] flex flex-col items-center ${!isAdding ? 'justify-center' : 'justify-start pt-8'} w-full overflow-y-auto max-h-[85vh] sm:max-h-none ${!isAdding ? 'cursor-grab active:cursor-grabbing' : ''}`}
+            drag={!isAdding ? "x" : false}
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={(_, { offset }) => {
+              if (isAdding) return;
+              const swipe = offset.x;
+              if (swipe < -50) next();
+              else if (swipe > 50) prev();
+            }}
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
@@ -130,7 +147,7 @@ export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselP
         )}
       </AnimatePresence>
 
-      <div className="mt-6 flex justify-center gap-2">
+      <div className="mt-6 hidden sm:flex justify-center gap-2">
         {Array.from({ length: totalSlides }).map((_, i) => (
           <button
             key={i}
@@ -146,6 +163,26 @@ export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselP
           />
         ))}
       </div>
+
+      {!isAdding && index < items.length && (
+        <div className="mt-6 flex sm:hidden items-center justify-between w-full px-2">
+          <button
+            onClick={next}
+            className="rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-6 py-2.5 text-sm font-semibold text-brand-cyan transition hover:bg-brand-cyan/20"
+          >
+            Next
+          </button>
+          <button
+            onClick={() => {
+              setIsAdding(true);
+              setIndex(totalSlides - 1);
+            }}
+            className="rounded-full border border-brand-magenta/30 bg-brand-magenta/10 px-6 py-2.5 text-sm font-semibold text-brand-magenta transition hover:bg-brand-magenta/20"
+          >
+            Add Review
+          </button>
+        </div>
+      )}
     </div>
   );
 }

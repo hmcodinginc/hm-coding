@@ -25,8 +25,8 @@ const Services: React.FC<ServicesProps> = ({ openContact }) => {
   const state = location.state as LocationState;
   const initialIndex = state?.initialIndex;
 
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [breakpoint, setBreakpoint] = useState<"mobile" | "tablet" | "desktop">("desktop");
 
   useEffect(() => {
     if (initialIndex != null && initialIndex >= 0 && initialIndex < services.length) {
@@ -35,21 +35,39 @@ const Services: React.FC<ServicesProps> = ({ openContact }) => {
   }, [initialIndex]);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleResize = () => {
+      const w = window.innerWidth;
+      if (w < 768) setBreakpoint("mobile");
+      else if (w < 1024) setBreakpoint("tablet");
+      else setBreakpoint("desktop");
+    };
+    handleResize(); // init
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    if (activeIndex !== null) {
+      setTimeout(() => {
+        const el = document.getElementById("active-service-detail");
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }
+      }, 50);
+    }
+  }, [activeIndex]);
+
   return (
     <motion.div
-      className="relative flex w-full min-h-screen flex-col bg-brand-black pb-24"
+      className="relative flex w-full min-h-screen flex-col bg-brand-black pb-8"
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
       <div className="pointer-events-none absolute inset-0 bg-hero-glow opacity-40" aria-hidden />
 
-      <section className="relative z-10 mx-auto w-full max-w-7xl px-6 py-20">
+      <section className="relative z-10 mx-auto w-full max-w-7xl px-6 py-10 sm:py-20">
         <div className="mb-16 text-center">
           <span className="section-eyebrow mb-3 block">Expertise Areas</span>
           <h1 className="font-display text-4xl font-bold tracking-tight text-white md:text-5xl">
@@ -57,37 +75,46 @@ const Services: React.FC<ServicesProps> = ({ openContact }) => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service, index) => (
-            <div key={service.title} className="flex flex-col">
-              <ServiceCard
-                title={service.title}
-                description={service.description}
-                icon={serviceIcons[index] ?? serviceIcons[0]}
-                isActive={activeIndex === index}
-                onSelect={() => setActiveIndex(index)}
-              />
+        <div className="mx-auto w-full max-w-[380px] md:max-w-none grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {services.map((service, index) => {
+            const isLastInRowMobile = true;
+            const isLastInRowTablet = index % 2 === 1 || index === services.length - 1;
+            const isLastInRowDesktop = index % 4 === 3 || index === services.length - 1;
 
-              {isMobile && activeIndex === index ? (
-                <div className="mt-4">
-                  <ServiceDetailPanel service={service} onEnquiry={openContact} />
+            const shouldShowDetailHere = 
+              activeIndex !== null && (
+                (breakpoint === "mobile" && isLastInRowMobile && activeIndex === index) ||
+                (breakpoint === "tablet" && isLastInRowTablet && Math.floor(activeIndex / 2) === Math.floor(index / 2)) ||
+                (breakpoint === "desktop" && isLastInRowDesktop && Math.floor(activeIndex / 4) === Math.floor(index / 4))
+              );
+
+            return (
+              <React.Fragment key={service.title}>
+                <div className="flex flex-col">
+                  <ServiceCard
+                    title={service.title}
+                    description={service.description}
+                    icon={serviceIcons[index] ?? serviceIcons[0]}
+                    isActive={activeIndex === index}
+                    onSelect={() => setActiveIndex(activeIndex === index ? null : index)}
+                  />
                 </div>
-              ) : null}
-            </div>
-          ))}
-        </div>
 
-        {!isMobile ? (
-          <div className="mt-8">
-            <AnimatePresence mode="wait">
-              <ServiceDetailPanel
-                key={activeIndex}
-                service={services[activeIndex]}
-                onEnquiry={openContact}
-              />
-            </AnimatePresence>
-          </div>
-        ) : null}
+                {shouldShowDetailHere && (
+                  <div id="active-service-detail" className="col-span-1 md:col-span-2 lg:col-span-4 mt-2 mb-4">
+                    <AnimatePresence mode="wait">
+                      <ServiceDetailPanel 
+                        key={activeIndex} 
+                        service={services[activeIndex]} 
+                        onEnquiry={openContact} 
+                      />
+                    </AnimatePresence>
+                  </div>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </div>
       </section>
     </motion.div>
   );

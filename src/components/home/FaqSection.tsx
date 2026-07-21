@@ -2,23 +2,24 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionHeader } from "./SectionHeader";
 import { faqContent } from "../../constants/homeContent";
-import { AnimatedLogo } from "../shared/AnimatedLogo";
+// import { AnimatedLogo } from "../shared/AnimatedLogo";
+import { FaqAiAssistant } from "./FaqAiAssistant";
 
 type FaqSectionProps = {
   openContact: () => void;
 };
 
-export function FaqSection({ openContact }: FaqSectionProps) {
+export function FaqSection({ openContact: _openContact }: FaqSectionProps) {
   const { eyebrow, title, items } = faqContent;
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section className="bg-brand-black py-20">
+    <section className="bg-brand-black py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <SectionHeader eyebrow={eyebrow} title={title} />
 
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2">
-          <div className="space-y-3">
+        <div className="mx-auto w-full max-w-[380px] md:max-w-none grid grid-cols-1 gap-8 sm:gap-12 lg:grid-cols-2">
+          <div className="space-y-4">
             {items.map((item, i) => {
               const isOpen = openIndex === i;
               return (
@@ -28,7 +29,7 @@ export function FaqSection({ openContact }: FaqSectionProps) {
                 >
                   <button
                     type="button"
-                    className="flex w-full items-center justify-between px-6 py-4 text-left"
+                    className="flex w-full items-center justify-between px-6 py-5 sm:py-6 text-left"
                     onClick={() => setOpenIndex(isOpen ? -1 : i)}
                     aria-expanded={isOpen}
                   >
@@ -53,15 +54,20 @@ export function FaqSection({ openContact }: FaqSectionProps) {
             })}
           </div>
 
-          <div className="flex min-h-[320px] flex-col items-center justify-center gap-6 lg:sticky lg:top-24">
-            <AnimatedLogo variant="faq" />
-            <button
-              type="button"
-              onClick={openContact}
-              className="rounded-full border border-brand-magenta/30 bg-brand-surface px-6 py-3 text-sm text-brand-lavender transition hover:border-brand-magenta"
-            >
-              We&apos;re here to help
-            </button>
+          <div className="h-full w-full">
+            {/*
+            <div className="flex min-h-[320px] flex-col items-center justify-center gap-6">
+              <AnimatedLogo variant="faq" />
+              <button
+                type="button"
+                onClick={openContact}
+                className="rounded-full border border-brand-magenta/30 bg-brand-surface px-6 py-3 text-sm text-brand-lavender transition hover:border-brand-magenta"
+              >
+                We&apos;re here to help
+              </button>
+            </div>
+            */}
+            <FaqAiAssistant />
           </div>
         </div>
       </div>
