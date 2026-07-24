@@ -13,9 +13,7 @@ export default function Projects() {
       exit="exit"
       variants={pageTransition}
     >
-      <section className="relative overflow-hidden bg-brand-black text-white min-h-[450px] flex items-center border-b border-brand-indigo/20">
-        <div className="absolute top-0 right-0 h-[80vw] max-h-[600px] w-[80vw] max-w-[600px] bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-cyan/20 via-brand-magenta/10 to-transparent blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 h-[60vw] max-h-[400px] w-[60vw] max-w-[400px] bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-brand-indigo/20 to-transparent blur-[100px] pointer-events-none" />
+      <section className="relative overflow-hidden text-white min-h-[450px] flex items-center border-b border-brand-indigo/20">
 
         <div className="relative mx-auto max-w-7xl px-6 py-10 md:py-28 md:px-10 lg:px-16 z-10 w-full">
           <motion.div
@@ -63,8 +61,7 @@ export default function Projects() {
         </div>
       </section>
 
-      <section className="bg-brand-black py-10 md:py-24 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[90vw] max-h-[800px] w-[90vw] max-w-[800px] bg-[radial-gradient(circle,_var(--tw-gradient-stops))] from-brand-indigo/5 to-transparent blur-[100px] pointer-events-none" />
+      <section className="py-10 md:py-24 relative overflow-hidden">
         
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
           <motion.div

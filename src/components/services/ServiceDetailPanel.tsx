@@ -15,7 +15,6 @@ export function ServiceDetailPanel({ service, onEnquiry }: ServiceDetailPanelPro
       transition={{ duration: 0.4, ease: "easeOut" }}
       className="card-surface relative overflow-hidden rounded-[2rem] p-5 sm:p-8 md:p-10 shadow-[0_8px_40px_rgba(0,0,0,0.6)] border border-brand-indigo/40 bg-brand-surface group"
     >
-      <div className="absolute top-0 right-0 w-[150%] sm:w-[80%] max-w-[500px] aspect-square bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-brand-cyan/20 via-brand-magenta/10 to-transparent blur-[100px] pointer-events-none transition-opacity duration-700 group-hover:opacity-100 opacity-70" />
       
       <div className="relative z-10 flex flex-col gap-8">
         

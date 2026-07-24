@@ -87,12 +87,12 @@ export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselP
               ))}
             </div>
 
-            <blockquote className="mt-6 text-lg italic leading-relaxed text-gray-300">
+            <blockquote className="mt-6 mx-auto max-w-xl text-lg italic leading-relaxed text-gray-300">
               &ldquo;{items[index].quote}&rdquo;
             </blockquote>
 
-            <div className="mt-8 flex items-center justify-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-indigo font-semibold text-brand-cyan">
+            <div className="mt-8 mx-auto max-w-xl flex items-center justify-start gap-4 px-2 sm:px-4">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-indigo font-semibold text-brand-cyan">
                 {items[index].initials}
               </span>
               <div className="text-left">
@@ -165,19 +165,13 @@ export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselP
       </div>
 
       {!isAdding && index < items.length && (
-        <div className="mt-6 flex sm:hidden items-center justify-between w-full px-2">
-          <button
-            onClick={next}
-            className="rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-6 py-2.5 text-sm font-semibold text-brand-cyan transition hover:bg-brand-cyan/20"
-          >
-            Next
-          </button>
+        <div className="mt-6 flex lg:hidden items-center justify-center w-full px-2">
           <button
             onClick={() => {
               setIsAdding(true);
               setIndex(totalSlides - 1);
             }}
-            className="rounded-full border border-brand-magenta/30 bg-brand-magenta/10 px-6 py-2.5 text-sm font-semibold text-brand-magenta transition hover:bg-brand-magenta/20"
+            className="rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-6 py-2.5 text-sm font-semibold text-brand-cyan transition hover:bg-brand-cyan/20"
           >
             Add Review
           </button>

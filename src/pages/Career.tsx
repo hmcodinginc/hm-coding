@@ -59,12 +59,12 @@ setJobs(formattedJobs);
 
   return (
     <motion.div 
-      className="w-full flex flex-col bg-brand-black pb-24 min-h-screen relative overflow-hidden perspective-3d preserve-3d"
+      className="w-full flex flex-col pb-24 min-h-screen relative overflow-hidden perspective-3d preserve-3d"
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="absolute inset-0 bg-hero-glow pointer-events-none opacity-40" />
+      {/* Removed bg-hero-glow */}
       <div className="absolute inset-0 bg-grid-faint pointer-events-none" />
 
       {/* HERO */}
@@ -112,7 +112,7 @@ setJobs(formattedJobs);
 
       {/* JOBS */}
       <Scroll3DWrapper>
-        <section className="py-10 sm:py-24 bg-brand-black/40 border-t border-brand-indigo/10">
+        <section className="py-10 sm:py-24 border-t border-brand-indigo/10">
           <div className="max-w-6xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-extrabold text-center text-white mb-16 font-display tracking-tight">
               Current <span className="text-gradient-brand">Openings</span>

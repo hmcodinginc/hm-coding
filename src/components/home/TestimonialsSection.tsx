@@ -57,7 +57,7 @@ const mergedItems = userReviews.map((r) => ({
   rating: r.rating,
 }));
   return (
-    <section ref={ref} className="bg-brand-black py-10 sm:py-16">
+    <section ref={ref} className="py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-6">
       <SectionHeader
   eyebrow="TESTIMONIALS"

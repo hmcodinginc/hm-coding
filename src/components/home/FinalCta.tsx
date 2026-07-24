@@ -9,7 +9,7 @@ export function FinalCta({ openContact }: FinalCtaProps) {
   const { title, description, buttonLabel } = finalCtaContent;
 
   return (
-    <section className="bg-brand-black py-10 sm:py-16">
+    <section className="py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           className="mx-auto w-full max-w-[380px] md:max-w-4xl rounded-2xl bg-brand-gradient p-6 sm:p-10 text-center md:p-14"

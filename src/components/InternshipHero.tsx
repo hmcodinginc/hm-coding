@@ -8,7 +8,7 @@ interface Props {
 
 const InternshipHero: React.FC<Props> = ({ onApplyNow }) => {
   return (
-    <Section paddingSpacing="lg" className="relative overflow-hidden border-y border-brand-indigo/10 bg-brand-black perspective-3d preserve-3d">
+    <Section paddingSpacing="lg" className="relative overflow-hidden border-y border-brand-indigo/10 perspective-3d preserve-3d">
       <div
         className="hidden sm:block pointer-events-none absolute left-10 top-1/4 h-72 w-72 animate-float-orb-slow rounded-full bg-brand-cyan/10 blur-3xl"
         style={{ transform: "translateZ(-40px)" }}

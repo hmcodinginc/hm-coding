@@ -14,30 +14,19 @@ export const portfolioStatusBadgeClass: Record<PortfolioProjectStatus, string> =
 
 export const portfolioProjects: readonly PortfolioProject[] = [
   {
-    slug: "client-reminder-crm",
-    title: "Client Reminder CRM",
+    slug: "convertly",
+    title: "Convertly",
     shortDescription:
-      "Engagement dashboard for reminders, payments, and client activity—built for teams who want clarity without clutter.",
-    category: "CRM & automation",
-    tags: ["React", "TypeScript", "Tailwind", "Framer Motion"],
+      "An AI-powered Conversion Rate Optimization (CRO) platform providing intent-aware analysis, actionable reports, and website conversion insights.",
+    category: "Analytics & Growth",
+    tags: ["React", "TypeScript", "Tailwind", "Analytics"],
     status: "live",
-    accentGradient: "bg-gradient-to-r from-cyan-500 via-purple-600 to-violet-700",
-    visual: "/project-images/client.jpg",
-    imageSrc: "/project-images/client.jpg",
-    imageAlt: "Client Reminder CRM Dashboard",
-  },
-  {
-    slug: "restaurant-pos",
-    title: "Restaurant POS System",
-    shortDescription:
-      "Fast counter workflow: orders, kitchen routing, tabs, and shift reporting in one calm, touch-friendly surface.",
-    category: "Point of sale",
-    tags: ["React", "Real-time", "Payments", "Kitchen display"],
-    status: "live",
-    accentGradient: "bg-gradient-to-r from-orange-500 via-rose-500 to-amber-600",
-    visual: "🍽️",
-    imageSrc: "/project-images/restaurant.png",
-    imageAlt: "Restaurant POS System Dashboard",
+    accentGradient: "bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600",
+    visual: "📈",
+    imageSrc: "/project-images/Convertly_project.png",
+    imageAlt: "Convertly Dashboard",
+    directLink: "https://convertly.hmcoding.com/",
+    badgeLabelOverride: "Live Product",
   },
   {
     slug: "gym-management",
@@ -52,6 +41,22 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     imageSrc: "/project-images/gym.jpg",
     imageAlt: "Gym Management Dashboard",
     directLink: "https://fitflow.hmcoding.com/",
+    badgeLabelOverride: "Live Project",
+  },
+  {
+    slug: "client-reminder-crm",
+    title: "Client Reminder CRM",
+    shortDescription:
+      "Engagement dashboard for reminders, payments, and client activity—built for teams who want clarity without clutter.",
+    category: "CRM & automation",
+    tags: ["React", "TypeScript", "Tailwind", "Framer Motion"],
+    status: "live",
+    accentGradient: "bg-gradient-to-r from-cyan-500 via-purple-600 to-violet-700",
+    visual: "/project-images/client.jpg",
+    imageSrc: "/project-images/client.jpg",
+    imageAlt: "Client Reminder CRM Dashboard",
+    directLink: "https://remindflow.hmcoding.com/",
+    badgeLabelOverride: "Live Project",
   },
   {
     slug: "inventory-system",
@@ -80,18 +85,17 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     imageAlt: "Real Estate CRM Dashboard",
   },
   {
-    slug: "convertly",
-    title: "Convertly",
+    slug: "restaurant-pos",
+    title: "Restaurant POS System",
     shortDescription:
-      "Monitor conversion health, prioritize fixes, and track audit outcomes across your funnel.",
-    category: "Analytics & Growth",
-    tags: ["React", "TypeScript", "Tailwind", "Analytics"],
+      "Fast counter workflow: orders, kitchen routing, tabs, and shift reporting in one calm, touch-friendly surface.",
+    category: "Point of sale",
+    tags: ["React", "Real-time", "Payments", "Kitchen display"],
     status: "live",
-    accentGradient: "bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600",
-    visual: "📈",
-    imageSrc: "/project-images/Convertly_project.png",
-    imageAlt: "Convertly Dashboard",
-    directLink: "https://convertly.hmcoding.com/",
+    accentGradient: "bg-gradient-to-r from-orange-500 via-rose-500 to-amber-600",
+    visual: "🍽️",
+    imageSrc: "/project-images/restaurant.png",
+    imageAlt: "Restaurant POS System Dashboard",
   },
 ] as const;
 
@@ -106,7 +110,7 @@ export function isKnownPortfolioSlug(slug: string): boolean {
 }
 
 /** Homepage spotlight — order defines card order (must exist on `portfolioProjects`). */
-export const homeFeaturedProjectSlugs = ["convertly", "client-reminder-crm", "restaurant-pos"] as const;
+export const homeFeaturedProjectSlugs = ["convertly", "gym-management", "client-reminder-crm"] as const;
 
 export function getHomeFeaturedProjects(): PortfolioProject[] {
   const bySlug = new Map(portfolioProjects.map((p) => [p.slug, p]));

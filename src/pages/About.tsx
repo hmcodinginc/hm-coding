@@ -16,14 +16,13 @@ const About: React.FC<AboutProps> = ({ openContact }) => {
 
   return (
     <motion.div
-      className="w-full flex flex-col bg-brand-black"
+      className="w-full flex flex-col"
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       {/* Hero Section */}
-      <section className="relative bg-brand-black overflow-hidden py-10 md:py-28 border-b border-brand-indigo/10 perspective-3d preserve-3d">
-        <div className="absolute inset-0 bg-hero-glow-about pointer-events-none" />
+      <section className="relative overflow-hidden py-10 md:py-28 border-b border-brand-indigo/10 perspective-3d preserve-3d">
         <div className="absolute inset-0 bg-grid-faint pointer-events-none" />
         
         <div className="max-w-7xl mx-auto gap-12 px-6 relative z-10 flex flex-col md:flex-row items-center justify-between preserve-3d">
@@ -90,7 +89,7 @@ const About: React.FC<AboutProps> = ({ openContact }) => {
       </section>
 
       {/* Who We Are */}
-      <section className="py-10 sm:py-20 bg-brand-black/40 border-b border-brand-indigo/10 relative">
+      <section className="py-10 sm:py-20 border-b border-brand-indigo/10 relative">
         <div className="absolute inset-0 bg-grid-faint pointer-events-none opacity-50" />
         <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
           <motion.span 
@@ -125,8 +124,7 @@ const About: React.FC<AboutProps> = ({ openContact }) => {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-10 sm:py-20 bg-brand-black relative overflow-hidden perspective-3d preserve-3d">
-        <div className="absolute inset-0 bg-hero-glow pointer-events-none opacity-30" />
+      <section className="py-10 sm:py-20 relative overflow-hidden perspective-3d preserve-3d">
         <motion.div
           className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10 preserve-3d"
           initial="hidden"
@@ -169,7 +167,7 @@ const About: React.FC<AboutProps> = ({ openContact }) => {
 
       {/* Values */}
       <section 
-        className="py-10 sm:py-20 bg-brand-black/60 border-t border-brand-indigo/10"
+        className="py-10 sm:py-20 border-t border-brand-indigo/10"
       >
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">

@@ -140,7 +140,7 @@ export default function App() {
             }`}
           >
             <AnimatePresence mode="wait">
-              <Suspense fallback={<div className="min-h-screen bg-brand-black w-full" />}>
+              <Suspense fallback={<div className="min-h-screen w-full bg-transparent" />}>
                 <Routes location={{ pathname }} key={pathname}>
                   <Route
                 path="/"

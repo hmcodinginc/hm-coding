@@ -29,37 +29,7 @@ export function GlobalBackground() {
         aria-hidden
       />
 
-      {/* ── BG Layer 2: Gradient orbs ────────────────────────── */}
-      <div className="absolute inset-0" aria-hidden>
-        <div
-          className="absolute animate-float-orb-slow"
-          style={{
-            top: "5%", left: "5%",
-            width: "500px", height: "500px",
-            borderRadius: "50%",
-            background: "radial-gradient(ellipse, rgba(0,240,255,0.12) 0%, transparent 65%)",
-          }}
-        />
-        <div
-          className="absolute animate-float-orb-delayed"
-          style={{
-            bottom: "5%", right: "5%",
-            width: "420px", height: "420px",
-            borderRadius: "50%",
-            background: "radial-gradient(ellipse, rgba(225,0,255,0.09) 0%, transparent 65%)",
-          }}
-        />
-        <div
-          className="absolute animate-float-orb-slow"
-          style={{
-            top: "30%", left: "40%",
-            width: "300px", height: "300px",
-            borderRadius: "50%",
-            background: "radial-gradient(ellipse, rgba(53,67,138,0.10) 0%, transparent 70%)",
-            animationDelay: "-8s",
-          }}
-        />
-      </div>
+      {/* ── BG Layer 2: Gradient orbs removed for uniform background ── */}
 
       {/* ── BG Layer 3: Floating particles ───────────────────── */}
       <div className="absolute inset-0" aria-hidden>
@@ -82,38 +52,7 @@ export function GlobalBackground() {
         ))}
       </div>
 
-      {/* ── BG Layer 4: Radar sweep – bottom-right corner ────── */}
-      <div
-        className="absolute"
-        style={{ bottom: "-20%", right: "-10%", width: "400px", height: "400px" }}
-        aria-hidden
-      >
-        <div className="relative h-full w-full animate-radar">
-          <svg viewBox="0 0 200 200" className="h-full w-full" fill="none">
-            {[40, 70, 100].map((r) => (
-              <circle key={r} cx="100" cy="100" r={r}
-                stroke="rgba(62,195,202,0.12)" strokeWidth="1" />
-            ))}
-            <path
-              d="M 100 100 L 100 0"
-              stroke="rgba(0,240,255,0.5)"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            <path
-              d="M 100 100 L 100 0 A 100 100 0 0 1 170 170 Z"
-              fill="url(#radar-fill)"
-              opacity="0.07"
-            />
-            <defs>
-              <radialGradient id="radar-fill" cx="50%" cy="50%" r="50%">
-                <stop offset="0%"   stopColor="#00F0FF" stopOpacity="0.4" />
-                <stop offset="100%" stopColor="#00F0FF" stopOpacity="0"   />
-              </radialGradient>
-            </defs>
-          </svg>
-        </div>
-      </div>
+      {/* ── BG Layer 4: Radar sweep removed ────── */}
     </div>
   );
 }

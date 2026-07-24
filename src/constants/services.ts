@@ -58,7 +58,7 @@ export const services: ServiceItemType[] = [
     description: "Native and cross-platform mobile apps with smooth UX/UI for iOS and Android.",
     avgTime: "8 - 12 Weeks",
     price: "80,000 - 1,50,000 (Subject to change, negotiable)",
-    imageUrl: "/service/app.jpg",
+    imageUrl: "/service/app2.png",
     whatYouGet: [
       { icon: "📱", title: "Native Experience", subtitle: "On all devices" },
       { icon: "🚀", title: "App Store", subtitle: "Deployment" },

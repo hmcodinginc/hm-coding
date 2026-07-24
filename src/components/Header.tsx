@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import HMLogoSVG from "./shared/HMLogoSVG";
 import { useLogoAnim } from "../context/LogoAnimationContext";
 import { Container } from "./ui/Container";
-import { Button } from "./ui/Button";
 
 interface HeaderProps {
   openContact: () => void;
@@ -38,24 +37,36 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
     <header className={headerClass}>
       <Container className="flex items-center h-16 transition-all duration-300">
 
-        {/* ── Logo – magnetic glow + scale on hover ─────────── */}
+        {/* ── Logo – continuous spinning ring behind M ─────────── */}
         <div className="flex-shrink-0" ref={navLogoRef}>
-          <Link to="/" className="group flex items-center gap-2" aria-label="HM Coding home">
-            <div
-              className="cursor-pointer transition-transform duration-300 sm:group-hover:scale-110 sm:group-hover:drop-shadow-[0_0_14px_rgba(0,240,255,0.8)]"
-            >
+          <Link to="/" className="group flex items-center gap-2 outline-none select-none [-webkit-tap-highlight-color:transparent]" aria-label="HM Coding home">
+            <div className="relative flex items-center justify-center w-[52px] h-[52px] cursor-pointer transition-transform duration-300 sm:group-hover:scale-110">
+              {/* Continuous spinning ring */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                className="absolute w-[52px] h-[52px] rounded-full border border-brand-cyan/30 border-dashed flex items-center justify-center"
+              >
+                {/* Orbital dots */}
+                <div className="absolute -top-0.5 h-1.5 w-1.5 rounded-full bg-brand-cyan" />
+                <div className="absolute -bottom-0.5 h-1 w-1 rounded-full bg-brand-magenta" />
+              </motion.div>
+              
               <HMLogoSVG
                 uid="nav"
-                className="h-10 w-auto"
+                className="relative z-10 h-10 w-auto"
               />
-            </div>HM Coding
+            </div>
+            <span className="font-semibold text-base text-gray-100 tracking-wide">
+              HM Coding
+            </span>
           </Link>
         </div>
 
         <div className="flex-1" />
 
         {/* ── Desktop nav ───────────────────────────────────── */}
-        <nav className="hidden lg:flex items-center space-x-8">
+        <nav className="hidden min-[850px]:flex items-center space-x-8">
           {navLinks.map((link) => {
             const isActive = pathname === link.path;
             return (
@@ -86,20 +97,17 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
           })}
 
           {/* Book Demo CTA */}
-          <motion.div whileHover={{ scale: 1.06 }} whileTap={{ scale: 0.97 }}>
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={openDemo || openContact}
-              className="btn-shimmer bg-brand-magenta from-brand-magenta to-brand-magenta"
-            >
-              Book Demo
-            </Button>
-          </motion.div>
+          <button
+            type="button"
+            onClick={openDemo || openContact}
+            className="nav-link-hover relative text-gray-300 hover:text-brand-cyan transition-colors font-medium py-2"
+          >
+            Book Demo
+          </button>
         </nav>
 
         {/* ── Mobile hamburger ──────────────────────────────── */}
-        <div className="lg:hidden flex items-center">
+        <div className="min-[850px]:hidden flex items-center">
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
@@ -126,7 +134,7 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="lg:hidden px-4 pt-2 pb-6 space-y-3 bg-black/95 border-t border-brand-indigo/20 shadow-2xl overflow-hidden"
+            className="min-[850px]:hidden px-4 pt-2 pb-6 space-y-3 bg-black/95 border-t border-brand-indigo/20 shadow-2xl overflow-hidden"
           >
             {navLinks.map((link) => {
               const isActive = pathname === link.path;
@@ -144,7 +152,7 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
             <button
               type="button"
               onClick={() => { if (openDemo) { openDemo(); } else { openContact(); } setIsOpen(false); }}
-              className="mt-4 flex w-full h-10 items-center justify-center rounded-full bg-gradient-to-r from-brand-cyan to-brand-magenta text-sm font-bold text-white shadow-neon-magenta/25 transition hover:opacity-90"
+              className="block w-full text-left py-1 text-base text-gray-300 hover:text-brand-cyan"
             >
               Book Demo
             </button>
