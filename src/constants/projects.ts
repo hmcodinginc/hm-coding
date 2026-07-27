@@ -57,6 +57,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     imageAlt: "Client Reminder CRM Dashboard",
     directLink: "https://remindflow.hmcoding.com/",
     badgeLabelOverride: "Live Project",
+
   },
   {
     slug: "inventory-system",
@@ -85,6 +86,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     imageAlt: "Real Estate CRM Dashboard",
   },
   {
+
     slug: "restaurant-pos",
     title: "Restaurant POS System",
     shortDescription:
@@ -96,6 +98,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     visual: "🍽️",
     imageSrc: "/project-images/restaurant.png",
     imageAlt: "Restaurant POS System Dashboard",
+
   },
 ] as const;
 
@@ -110,7 +113,9 @@ export function isKnownPortfolioSlug(slug: string): boolean {
 }
 
 /** Homepage spotlight — order defines card order (must exist on `portfolioProjects`). */
+
 export const homeFeaturedProjectSlugs = ["convertly", "gym-management", "client-reminder-crm"] as const;
+
 
 export function getHomeFeaturedProjects(): PortfolioProject[] {
   const bySlug = new Map(portfolioProjects.map((p) => [p.slug, p]));

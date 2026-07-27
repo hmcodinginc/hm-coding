@@ -39,6 +39,7 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
 
         {/* ── Logo – continuous spinning ring behind M ─────────── */}
         <div className="flex-shrink-0" ref={navLogoRef}>
+
           <Link to="/" className="group flex items-center gap-2 outline-none select-none [-webkit-tap-highlight-color:transparent]" aria-label="HM Coding home">
             <div className="relative flex items-center justify-center w-[52px] h-[52px] cursor-pointer transition-transform duration-300 sm:group-hover:scale-110">
               {/* Continuous spinning ring */}
@@ -52,6 +53,7 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
                 <div className="absolute -bottom-0.5 h-1 w-1 rounded-full bg-brand-magenta" />
               </motion.div>
               
+
               <HMLogoSVG
                 uid="nav"
                 className="relative z-10 h-10 w-auto"
@@ -66,7 +68,9 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
         <div className="flex-1" />
 
         {/* ── Desktop nav ───────────────────────────────────── */}
+
         <nav className="hidden min-[850px]:flex items-center space-x-8">
+
           {navLinks.map((link) => {
             const isActive = pathname === link.path;
             return (
@@ -97,6 +101,7 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
           })}
 
           {/* Book Demo CTA */}
+
           <button
             type="button"
             onClick={openDemo || openContact}
@@ -108,6 +113,7 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
 
         {/* ── Mobile hamburger ──────────────────────────────── */}
         <div className="min-[850px]:hidden flex items-center">
+
           <button
             type="button"
             onClick={() => setIsOpen(!isOpen)}
@@ -134,7 +140,9 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
+
             className="min-[850px]:hidden px-4 pt-2 pb-6 space-y-3 bg-black/95 border-t border-brand-indigo/20 shadow-2xl overflow-hidden"
+
           >
             {navLinks.map((link) => {
               const isActive = pathname === link.path;
@@ -152,7 +160,9 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
             <button
               type="button"
               onClick={() => { if (openDemo) { openDemo(); } else { openContact(); } setIsOpen(false); }}
+
               className="block w-full text-left py-1 text-base text-gray-300 hover:text-brand-cyan"
+
             >
               Book Demo
             </button>

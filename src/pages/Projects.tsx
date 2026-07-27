@@ -13,7 +13,9 @@ export default function Projects() {
       exit="exit"
       variants={pageTransition}
     >
+
       <section className="relative overflow-hidden text-white min-h-[450px] flex items-center border-b border-brand-indigo/20">
+
 
         <div className="relative mx-auto max-w-7xl px-6 py-10 md:py-28 md:px-10 lg:px-16 z-10 w-full">
           <motion.div
@@ -61,7 +63,9 @@ export default function Projects() {
         </div>
       </section>
 
+
       <section className="py-10 md:py-24 relative overflow-hidden">
+
         
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
           <motion.div

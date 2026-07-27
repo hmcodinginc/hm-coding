@@ -21,7 +21,6 @@ export function LandingFooter({ openContact, openDemo }: LandingFooterProps) {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
 
-
       <div className="mx-auto max-w-7xl px-6 relative z-10">
         <motion.div className="grid grid-cols-1 gap-y-10 md:grid-cols-[1.5fr_1fr_1fr_1fr] md:gap-x-6 md:gap-y-12 lg:grid-cols-[1.5fr_1fr_1fr_1fr_1.5fr] lg:gap-x-8 xl:gap-x-12">
           {/* Logo + tagline */}

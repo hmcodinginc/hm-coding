@@ -112,7 +112,9 @@ setJobs(formattedJobs);
 
       {/* JOBS */}
       <Scroll3DWrapper>
+
         <section className="py-10 sm:py-24 border-t border-brand-indigo/10">
+
           <div className="max-w-6xl mx-auto px-6">
             <h2 className="text-3xl md:text-4xl font-extrabold text-center text-white mb-16 font-display tracking-tight">
               Current <span className="text-gradient-brand">Openings</span>

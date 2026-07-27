@@ -165,7 +165,9 @@ export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselP
       </div>
 
       {!isAdding && index < items.length && (
+
         <div className="mt-6 flex lg:hidden items-center justify-center w-full px-2">
+
           <button
             onClick={() => {
               setIsAdding(true);

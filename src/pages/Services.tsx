@@ -60,7 +60,9 @@ const Services: React.FC<ServicesProps> = ({ openContact }) => {
 
   return (
     <motion.div
+
       className="relative flex w-full min-h-screen flex-col pb-8"
+
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
