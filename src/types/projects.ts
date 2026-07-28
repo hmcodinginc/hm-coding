@@ -22,4 +22,6 @@ export type PortfolioProject = {
   directLink?: string;
   /** Optional case study or article (future). */
   caseStudyUrl?: string;
+  /** Optional custom text for the top-right status badge */
+  badgeLabelOverride?: string;
 };

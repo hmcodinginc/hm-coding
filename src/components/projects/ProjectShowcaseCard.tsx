@@ -54,7 +54,7 @@ export function ProjectShowcaseCard({ project }: ProjectShowcaseCardProps) {
             toneClassName={portfolioStatusBadgeClass[project.status]}
             className="shrink-0 border border-brand-indigo/20 bg-brand-black/80"
           >
-            {portfolioStatusLabel[project.status]}
+            {project.badgeLabelOverride ?? portfolioStatusLabel[project.status]}
           </StatusBadge>
         </div>
 

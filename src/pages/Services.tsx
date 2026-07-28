@@ -60,12 +60,14 @@ const Services: React.FC<ServicesProps> = ({ openContact }) => {
 
   return (
     <motion.div
-      className="relative flex w-full min-h-screen flex-col bg-brand-black pb-8"
+
+      className="relative flex w-full min-h-screen flex-col pb-8"
+
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <div className="pointer-events-none absolute inset-0 bg-hero-glow opacity-40" aria-hidden />
+      {/* Removed bg-hero-glow */}
 
       <section className="relative z-10 mx-auto w-full max-w-7xl px-6 py-10 sm:py-20">
         <div className="mb-16 text-center">

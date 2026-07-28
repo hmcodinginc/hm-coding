@@ -13,7 +13,7 @@ export function HeroSection({ openContact }: HeroSectionProps) {
   const { badge, headline, subtext, since, primaryCta, secondaryCta } = heroContent;
 
   return (
-    <Section paddingSpacing="lg" className="relative overflow-hidden bg-brand-black">
+    <Section paddingSpacing="lg" className="relative overflow-hidden">
       <div className="relative flex flex-col items-center justify-between gap-8 sm:gap-12 md:flex-row">
         
         {/* Left: text */}

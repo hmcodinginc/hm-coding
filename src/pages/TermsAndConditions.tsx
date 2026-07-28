@@ -20,7 +20,9 @@ export default function TermsAndConditions() {
 
   return (
     <motion.div
-      className="w-full flex flex-col bg-brand-black min-h-screen text-gray-300"
+
+      className="w-full flex flex-col min-h-screen text-gray-300"
+
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -116,7 +118,9 @@ export default function TermsAndConditions() {
           <motion.div variants={item} className="space-y-4">
             <h2 className="text-2xl font-bold text-white font-display">Contact</h2>
             <p className="leading-relaxed">
-              Questions about these terms? Email contact@hmcoding.com or write to HM Coding, India.
+
+              Questions about these terms? Email contact @hmcoding.h@gmail.com or write to HM Coding, India.
+
             </p>
           </motion.div>
 

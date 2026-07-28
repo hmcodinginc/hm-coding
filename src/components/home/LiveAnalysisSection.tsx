@@ -83,11 +83,9 @@ export const LiveAnalysisSection: React.FC<Live> = ({ openContact }) => {
     <section 
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative w-full bg-brand-black py-16 md:py-24 overflow-hidden border-y border-brand-indigo/10"
+      className="relative w-full py-16 md:py-24 overflow-hidden border-y border-brand-indigo/10"
     >
-      {/* Background Glows */}
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[150%] sm:w-[80%] max-w-[600px] aspect-square bg-brand-cyan/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[150%] sm:w-[80%] max-w-[600px] aspect-square bg-brand-magenta/5 rounded-full blur-[100px] pointer-events-none" />
+      {/* Background Glows removed for global background seamlessness */}
 
       <div className="mx-auto max-w-7xl px-6 md:px-10 lg:px-16 flex flex-col lg:flex-row items-center gap-16 lg:gap-24 relative z-10">
         

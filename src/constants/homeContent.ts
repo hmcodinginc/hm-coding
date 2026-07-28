@@ -119,8 +119,8 @@ export const landingFooterContent = {
     "HM Coding delivers modern, efficient, and scalable software solutions — from web and mobile apps to smart integrations.",
   social: [
     { label: "LinkedIn", href: "https://www.linkedin.com/company/hm-coding/posts/?feedView=all",icon: "linkedin" },
-    // { label: "Twitter", href: "https://twitter.com/hmcodinginc" },
-    // { label: "GitHub", href: "https://github.com/hmcodinginc" },
+     { label: "Twitter", href: "https://x.com/HM_Coding" ,icon: "twitter" },
+     { label: "Instagram", href: "https://www.instagram.com/hm_coding?igsh=Y3VxOTlyd3phNjR2" ,icon: "instagram" },
   ],
   quickLinks: [
     { label: "Home", to: "/" },

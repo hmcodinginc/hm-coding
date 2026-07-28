@@ -26,8 +26,7 @@ export const ConvetlyPromotion: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-24 bg-brand-black relative border-t border-brand-indigo/10 overflow-hidden">
-      <div className="absolute inset-0 bg-hero-glow opacity-20 pointer-events-none" />
+    <section className="py-24 relative border-t border-brand-indigo/10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         <div className="text-center mb-16">

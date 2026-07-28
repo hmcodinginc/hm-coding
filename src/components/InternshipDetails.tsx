@@ -32,7 +32,7 @@ const InternshipDetails: React.FC<Props> = ({ onSendIdea }) => {
   };
 
   return (
-    <section className="py-24 bg-brand-black perspective-3d preserve-3d border-t border-brand-indigo/10">
+    <section className="py-24 perspective-3d preserve-3d border-t border-brand-indigo/10">
       <div className="max-w-6xl mx-auto px-6 preserve-3d">
 
         {/* TITLE */}

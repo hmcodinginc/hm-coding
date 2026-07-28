@@ -11,7 +11,7 @@ export function FeaturedProjectsSection() {
   const { eyebrow, title, description, ctaLabel } = featuredProjectsContent;
 
   return (
-    <section className="bg-brand-black py-10 sm:py-16">
+    <section className="py-10 sm:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-10 flex flex-col items-center justify-between gap-6 md:flex-row md:items-end">
           <SectionHeader
