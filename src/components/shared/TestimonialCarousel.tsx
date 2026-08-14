@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ReviewForm } from "../home/ReviewForm";
-import type { Review } from "../../types/review";
 
 export type TestimonialItem = {
   quote: string;
@@ -13,16 +12,13 @@ export type TestimonialItem = {
 
 type TestimonialCarouselProps = {
   items: TestimonialItem[];
-  onAddReview?: (review: Omit<Review, 'id' | 'timestamp'>) => void;
 };
 
-export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselProps) {
+export function TestimonialCarousel({ items }: TestimonialCarouselProps) {
   const [index, setIndex] = useState(0);
-  const [isAdding, setIsAdding] = useState(false);
+  const [isAdding, setIsAdding] = useState(items.length === 0);
 
-  if (items.length === 0) return null;
-
-  const totalSlides = items.length + 1; // +1 for the "Add Review" slide
+  const totalSlides = items.length + 1;
 
   const prev = () => {
     setIsAdding(false);
@@ -33,14 +29,8 @@ export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselP
     setIndex((i) => (i === totalSlides - 1 ? 0 : i + 1));
   };
 
-  const handleReviewAdded = (review: Omit<Review, 'id' | 'timestamp'>) => {
-    if (onAddReview) {
-      onAddReview(review);
-    }
-    // Navigate back to the newly added review (which will be at index 0 because it prepends in TestimonialsSection, wait no, 
-    // actually just reset view)
-    setIsAdding(false);
-    setIndex(0);
+  const handleReviewSubmitted = () => {
+    setIsAdding(true);
   };
 
   return (
@@ -134,7 +124,7 @@ export function TestimonialCarousel({ items, onAddReview }: TestimonialCarouselP
               </div>
             ) : (
               <div className="w-full text-left">
-                <ReviewForm onAddReview={handleReviewAdded} />
+                <ReviewForm onSubmitted={handleReviewSubmitted} />
                 <button 
                   onClick={() => setIsAdding(false)} 
                   className="mt-4 text-sm text-gray-400 hover:text-white transition"

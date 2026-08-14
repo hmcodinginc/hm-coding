@@ -5,6 +5,7 @@ import { TiltCard } from "./shared/TiltCard";
 import { Card, CardContent, CardFooter } from "./ui/Card";
 import { Heading, Text } from "./ui/Typography";
 import { Button } from "./ui/Button";
+import { isSafeHttpUrl } from "../lib/validation";
 
 interface JobCardProps {
   job: Job;
@@ -34,8 +35,9 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
         </CardContent>
 
         <CardFooter className="pt-2">
+            {job.applyUrl && isSafeHttpUrl(job.applyUrl) ? (
           <motion.a
-            href={job.applyUrl || "#"}
+            href={job.applyUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full relative z-30 pointer-events-auto"
@@ -48,6 +50,9 @@ const JobCard: React.FC<JobCardProps> = ({ job }) => {
               Apply Now
             </Button>
           </motion.a>
+            ) : (
+              <p className="text-sm text-gray-400">Application link unavailable. Use the internship form or contact us.</p>
+            )}
         </CardFooter>
       </Card>
     </TiltCard>

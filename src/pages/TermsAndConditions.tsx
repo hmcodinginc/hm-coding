@@ -119,7 +119,7 @@ export default function TermsAndConditions() {
             <h2 className="text-2xl font-bold text-white font-display">Contact</h2>
             <p className="leading-relaxed">
 
-              Questions about these terms? Email contact @hmcoding.h@gmail.com or write to HM Coding, India.
+              Questions about these terms? Email hmcoding.h@gmail.com.
 
             </p>
           </motion.div>

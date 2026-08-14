@@ -16,10 +16,11 @@ export default function LoaderOverlay({ visible }: { visible: boolean }) {
     const t1 = setTimeout(() => setPhase("pulse"), 900);
     const t2 = setTimeout(() => setPhase("done"), 2000);
 
+    const rafId = rafRef.current;
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (rafId) cancelAnimationFrame(rafId);
     };
   }, [visible]);
 

@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import DataTable from "../components/DataTable";
 import { supabase } from "../../lib/supabase";
+import { getUserErrorMessage } from "../../lib/errors";
 import type { ContactMessage } from "../../types/admin";
+import { AdminNotice } from "../components/AdminNotice";
 
 const ContactMessages: React.FC = () => {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [actionError, setActionError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchMessages();
@@ -25,7 +29,7 @@ const ContactMessages: React.FC = () => {
       if (error) throw error;
       setMessages(data || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch messages");
+      setError(getUserErrorMessage(err, "Unable to load messages."));
     } finally {
       setLoading(false);
     }
@@ -47,13 +51,17 @@ const ContactMessages: React.FC = () => {
       if (error) throw error;
       setMessages(messages.filter((msg) => msg.id !== id));
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to delete message");
+      setActionError(getUserErrorMessage(err, "Unable to delete this message."));
     }
   };
 
   const columns = [
     { header: "Name", accessor: "name" as const },
     { header: "Email", accessor: "email" as const },
+    {
+      header: "Subject",
+      accessor: (row: ContactMessage) => row.subject || "General Inquiry",
+    },
     {
       header: "Message",
       accessor: (row: ContactMessage) => (
@@ -89,17 +97,7 @@ const ContactMessages: React.FC = () => {
   ];
 
   if (error) {
-    return (
-      <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-6">
-        <p className="text-red-400">Error: {error}</p>
-        <button
-          onClick={fetchMessages}
-          className="mt-4 rounded-lg bg-red-500/20 px-4 py-2 text-sm text-red-300 transition hover:bg-red-500/30"
-        >
-          Retry
-        </button>
-      </div>
-    );
+    return <AdminNotice message={error} onRetry={() => void fetchMessages()} />;
   }
 
   return (
@@ -114,6 +112,8 @@ const ContactMessages: React.FC = () => {
         </button>
       </div>
 
+      {actionError && <div className="mb-4"><AdminNotice message={actionError} /></div>}
+
       <DataTable
         data={messages}
         columns={columns}
@@ -126,6 +126,7 @@ const ContactMessages: React.FC = () => {
               <div>
                 <h4 className="text-lg font-semibold text-brand-cyan">{row.name}</h4>
                 <p className="text-sm text-gray-400">{row.email}</p>
+                {row.subject && <p className="mt-1 text-xs text-brand-cyan">{row.subject}</p>}
               </div>
               <div className="text-right">
                 <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Received On</p>

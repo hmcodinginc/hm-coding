@@ -118,7 +118,9 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
             type="button"
             onClick={() => setIsOpen(!isOpen)}
             className="text-gray-300 hover:text-brand-cyan transition-colors focus:outline-none p-2 -mr-2"
-            aria-label="Toggle menu"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path
@@ -142,6 +144,7 @@ const Header: React.FC<HeaderProps> = ({ openContact, openDemo }) => {
             transition={{ duration: 0.25, ease: "easeInOut" }}
 
             className="min-[850px]:hidden px-4 pt-2 pb-6 space-y-3 bg-black/95 border-t border-brand-indigo/20 shadow-2xl overflow-hidden"
+            id="mobile-navigation"
 
           >
             {navLinks.map((link) => {

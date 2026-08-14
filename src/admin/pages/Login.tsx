@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import HMLogoSVG from "../../components/shared/HMLogoSVG";
 import { supabase } from "../../lib/supabase";
+import { isCurrentUserAdmin } from "../../lib/auth";
+import { getUserErrorMessage } from "../../lib/errors";
 import HMLogo from "../../components/HMLogo";
 
 const Login: React.FC = () => {
@@ -10,17 +11,30 @@ const Login: React.FC = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
+  const [checkingSession, setCheckingSession] = useState(true);
   const [error, setError] = useState("");
   const [attempts, setAttempts] = useState(0);
   const [lockedUntil, setLockedUntil] = useState<number | null>(null);
   const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
+    const redirectIfAdmin = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (session && (await isCurrentUserAdmin())) {
+        navigate("/hm-portal-admin-dashboard", { replace: true });
+      }
+      setCheckingSession(false);
+    };
+    void redirectIfAdmin();
+  }, [navigate]);
+
+  useEffect(() => {
     const lockData = localStorage.getItem("admin_login_lock");
     if (lockData) {
-      const { time } = JSON.parse(lockData);
+      const { time } = JSON.parse(lockData) as { time: number };
       if (time > Date.now()) {
         setLockedUntil(time);
       } else {
@@ -31,7 +45,7 @@ const Login: React.FC = () => {
 
     const attemptsData = localStorage.getItem("admin_login_attempts");
     if (attemptsData) {
-      setAttempts(parseInt(attemptsData));
+      setAttempts(parseInt(attemptsData, 10));
     }
   }, []);
 
@@ -54,14 +68,13 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     if (lockedUntil) return;
 
     setLoading(true);
     setError("");
 
     const { error: authError } = await supabase.auth.signInWithPassword({
-      email,
+      email: email.trim(),
       password,
     });
 
@@ -69,15 +82,23 @@ const Login: React.FC = () => {
       const newAttempts = attempts + 1;
       setAttempts(newAttempts);
       localStorage.setItem("admin_login_attempts", newAttempts.toString());
-      
+
       if (newAttempts >= 3) {
         const lockTime = Date.now() + 2 * 60 * 1000;
         setLockedUntil(lockTime);
         localStorage.setItem("admin_login_lock", JSON.stringify({ time: lockTime }));
         setError("Too many failed attempts. Try again in 2 minutes.");
       } else {
-        setError(authError.message);
+        setError(getUserErrorMessage(authError, "Sign-in failed. Check your email and password."));
       }
+      setLoading(false);
+      return;
+    }
+
+    const admin = await isCurrentUserAdmin();
+    if (!admin) {
+      await supabase.auth.signOut();
+      setError("This account is not authorized for admin access.");
       setLoading(false);
       return;
     }
@@ -87,18 +108,22 @@ const Login: React.FC = () => {
     navigate("/hm-portal-admin-dashboard");
   };
 
+  if (checkingSession) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-brand-surface text-white">
+        Loading…
+      </div>
+    );
+  }
+
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-brand-surface px-4">
-      <div className="absolute inset-0 bg-hero-glow pointer-events-none" />
+      <div className="pointer-events-none absolute inset-0 bg-hero-glow" />
 
       <div className="relative z-10 w-full max-w-md">
         <div className="mb-8 flex flex-col items-center">
           <HMLogo variant="hero" className="mb-6" />
-
-          <h1 className="text-3xl font-bold text-white font-display">
-            Admin Login
-          </h1>
-
+          <h1 className="font-display text-3xl font-bold text-white">Admin Login</h1>
           <p className="mt-2 text-center text-gray-400">
             Sign in to access the HM Coding admin dashboard.
           </p>
@@ -107,13 +132,9 @@ const Login: React.FC = () => {
         <div className="rounded-2xl border border-gray-800 bg-gray-900/80 p-8 shadow-card-md backdrop-blur-sm">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label
-                htmlFor="email"
-                className="mb-2 block text-sm font-medium text-gray-300"
-              >
+              <label htmlFor="email" className="mb-2 block text-sm font-medium text-gray-300">
                 Email
               </label>
-
               <input
                 id="email"
                 type="email"
@@ -127,13 +148,9 @@ const Login: React.FC = () => {
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="mb-2 block text-sm font-medium text-gray-300"
-              >
+              <label htmlFor="password" className="mb-2 block text-sm font-medium text-gray-300">
                 Password
               </label>
-
               <input
                 id="password"
                 type="password"
@@ -147,7 +164,7 @@ const Login: React.FC = () => {
             </div>
 
             {error && (
-              <div className="rounded-lg border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-400">
+              <div className="rounded-lg border border-red-500/40 bg-red-500/10 p-3 text-sm text-red-400" role="alert">
                 {error}
               </div>
             )}
@@ -162,10 +179,7 @@ const Login: React.FC = () => {
           </form>
 
           <div className="mt-6 text-center">
-            <Link
-              to="/"
-              className="text-sm text-brand-cyan transition hover:text-brand-mint"
-            >
+            <Link to="/" className="text-sm text-brand-cyan transition hover:text-brand-mint">
               ← Back to Home
             </Link>
           </div>

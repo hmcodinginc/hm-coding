@@ -38,5 +38,7 @@ pnpm-debug.log*
 *.sln
 *.sw?
 
-# Vercel
-.vercel
+# Playwright
+/playwright-report
+/test-results
+/blob-report

@@ -18,8 +18,10 @@ const Topbar: React.FC<TopbarProps> = ({ toggleSidebar }) => {
       <div className="flex items-center justify-between px-4 lg:px-8 py-4">
         <div className="flex items-center gap-4">
           <button 
+            type="button"
             onClick={toggleSidebar}
             className="lg:hidden text-gray-400 hover:text-white focus:outline-none"
+            aria-label="Open sidebar"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>

@@ -2,26 +2,80 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://hmcoding.com/</loc>
-    <lastmod>2025-11-06T00:00:00+05:30</lastmod>
+    <lastmod>2026-08-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://hmcoding.com/services/</loc>
-    <lastmod>2025-11-06T00:00:00+05:30</lastmod>
+    <loc>https://hmcoding.com/about</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://hmcoding.com/services</loc>
+    <lastmod>2026-08-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://hmcoding.com/projects/</loc>
-    <lastmod>2025-11-06T00:00:00+05:30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.85</priority>
+    <loc>https://hmcoding.com/projects</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://hmcoding.com/about/</loc>
-    <lastmod>2025-11-06T00:00:00+05:30</lastmod>
+    <loc>https://hmcoding.com/projects/convertly</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://hmcoding.com/projects/gym-management</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://hmcoding.com/projects/client-reminder-crm</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://hmcoding.com/projects/inventory-system</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://hmcoding.com/projects/real-estate-crm</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://hmcoding.com/projects/restaurant-pos</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://hmcoding.com/careers</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://hmcoding.com/terms</loc>
+    <lastmod>2026-08-14</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.80</priority>
+    <priority>0.30</priority>
+  </url>
+  <url>
+    <loc>https://hmcoding.com/privacy</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.30</priority>
   </url>
 </urlset>
