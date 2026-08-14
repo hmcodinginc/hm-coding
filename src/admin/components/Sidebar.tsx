@@ -37,9 +37,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, setIsOpen }) => {
   return (
     <>
       {isOpen && (
-        <div 
+        <button
+          type="button"
           className="fixed inset-0 z-20 bg-black/50 lg:hidden"
           onClick={() => setIsOpen(false)}
+          aria-label="Close sidebar"
         />
       )}
       <aside className={`fixed left-0 top-0 z-30 h-screen w-64 border-r border-gray-800 bg-brand-black transition-transform duration-300 lg:translate-x-0 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}>

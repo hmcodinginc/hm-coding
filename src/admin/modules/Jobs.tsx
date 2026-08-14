@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import DataTable from "../components/DataTable";
 import { supabase } from "../../lib/supabase";
+import { getUserErrorMessage } from "../../lib/errors";
+import { isSafeHttpUrl } from "../../lib/validation";
 import type { Job } from "../../types/admin";
+import { AdminNotice } from "../components/AdminNotice";
 
 const Jobs: React.FC = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -9,6 +12,8 @@ const Jobs: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingJob, setEditingJob] = useState<Job | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -37,7 +42,7 @@ const Jobs: React.FC = () => {
       if (error) throw error;
       setJobs(data || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch jobs");
+      setError(getUserErrorMessage(err, "Unable to load jobs."));
     } finally {
       setLoading(false);
     }
@@ -71,12 +76,19 @@ const Jobs: React.FC = () => {
       active: job.active,
     });
     setIsModalOpen(true);
+    setActionError(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isSafeHttpUrl(formData.apply_url)) {
+      setActionError("Apply URL must be a valid http or https link.");
+      return;
+    }
 
     try {
+      setSaving(true);
+      setActionError(null);
       if (editingJob) {
         const { error } = await supabase
           .from("jobs")
@@ -98,7 +110,9 @@ const Jobs: React.FC = () => {
 
       setIsModalOpen(false);
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to save job");
+      setActionError(getUserErrorMessage(err, "Unable to save this job."));
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -114,7 +128,7 @@ const Jobs: React.FC = () => {
       if (error) throw error;
       setJobs(jobs.filter((j) => j.id !== id));
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to delete job");
+      setActionError(getUserErrorMessage(err, "Unable to delete this job."));
     }
   };
 
@@ -128,7 +142,7 @@ const Jobs: React.FC = () => {
       if (error) throw error;
       setJobs(jobs.map((j) => (j.id === job.id ? { ...j, active: !job.active } : j)));
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to update job status");
+      setActionError(getUserErrorMessage(err, "Unable to update job status."));
     }
   };
 
@@ -176,26 +190,16 @@ const Jobs: React.FC = () => {
   ];
 
   if (error) {
-    return (
-      <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-6">
-        <p className="text-red-400">Error: {error}</p>
-        <button
-          onClick={fetchJobs}
-          className="mt-4 rounded-lg bg-red-500/20 px-4 py-2 text-sm text-red-300 transition hover:bg-red-500/30"
-        >
-          Retry
-        </button>
-      </div>
-    );
+    return <AdminNotice message={error} onRetry={() => void fetchJobs()} />;
   }
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-2xl font-bold text-white">Jobs</h2>
         <div className="flex gap-2">
           <button
-            onClick={fetchJobs}
+            onClick={() => void fetchJobs()}
             className="rounded-lg border border-gray-700 bg-gray-800 px-4 py-2 text-sm text-gray-300 transition hover:border-brand-cyan hover:text-white"
           >
             Refresh
@@ -209,6 +213,8 @@ const Jobs: React.FC = () => {
         </div>
       </div>
 
+      {actionError && <div className="mb-4"><AdminNotice message={actionError} /></div>}
+
       <DataTable
         data={jobs}
         columns={columns}
@@ -219,15 +225,22 @@ const Jobs: React.FC = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-gray-800 bg-gray-900 p-8">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" role="presentation" onClick={() => setIsModalOpen(false)}>
+          <div
+            className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-gray-800 bg-gray-900 p-8"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="job-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
             <div className="mb-6 flex items-center justify-between">
-              <h3 className="text-2xl font-bold text-white">
+              <h3 id="job-modal-title" className="text-2xl font-bold text-white">
                 {editingJob ? "Edit Job" : "Add New Job"}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="text-gray-400 transition hover:text-white"
+                aria-label="Close job form"
               >
                 ✕
               </button>
@@ -350,9 +363,10 @@ const Jobs: React.FC = () => {
               <div className="flex gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 rounded-lg bg-brand-gradient px-6 py-3 font-semibold text-white transition hover:scale-[1.02] hover:shadow-neon-cyan"
+                  disabled={saving}
+                  className="flex-1 rounded-lg bg-brand-gradient px-6 py-3 font-semibold text-white transition hover:scale-[1.02] hover:shadow-neon-cyan disabled:opacity-60"
                 >
-                  {editingJob ? "Update Job" : "Add Job"}
+                  {saving ? "Saving..." : editingJob ? "Update Job" : "Add Job"}
                 </button>
                 <button
                   type="button"

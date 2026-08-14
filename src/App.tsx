@@ -21,6 +21,7 @@ import { ContactModalProvider } from "./context/ContactModalProvider";
 import { LogoAnimationProvider } from "./context/LogoAnimationContext";
 import { useGlobalLoader } from "./context/GlobalLoaderContext";
 import { GlobalBackground } from "./components/shared/GlobalBackground";
+import { RouteSeo } from "./components/RouteSeo";
 import ProtectedRoute from "./admin/routes/ProtectedRoute";
 
 const Login = lazy(() => import("./admin/pages/Login"));
@@ -30,6 +31,7 @@ const ContactMessages = lazy(() => import("./admin/modules/ContactMessages"));
 const Reviews = lazy(() => import("./admin/modules/Reviews"));
 const Jobs = lazy(() => import("./admin/modules/Jobs"));
 const Applications = lazy(() => import("./admin/modules/Applications"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 export default function App() {
   const [isContactOpen, setIsContactOpen] = useState(false);
@@ -128,6 +130,7 @@ export default function App() {
         <div className="relative flex min-h-screen flex-col overflow-x-hidden">
           <GlobalBackground />
 
+          <RouteSeo />
           {!isAdminRoute && <Header openContact={openContact} openDemo={openDemo} />}
 
           <ScrollToTop />
@@ -207,6 +210,7 @@ export default function App() {
                 <Route path="jobs" element={<Jobs />} />
                 <Route path="applications" element={<Applications />} />
                 </Route>
+                <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
             </AnimatePresence>

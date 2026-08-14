@@ -49,7 +49,7 @@ const Home: React.FC<HomeProps> = ({ openContact }) => {
       </LazySection>
       
       <LazySection minHeight="600px">
-        <FaqSection openContact={openContact} />
+        <FaqSection />
       </LazySection>
       
       <LazySection minHeight="400px">

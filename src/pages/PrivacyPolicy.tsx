@@ -46,17 +46,21 @@ export default function PrivacyPolicy() {
 
           <motion.div variants={item} className="space-y-4">
             <h2 className="text-2xl font-bold text-white font-display">Information We Collect</h2>
-            <p className="leading-relaxed"><strong>Account & Contact Data</strong></p>
+            <p className="leading-relaxed"><strong>Contact & Inquiry Data</strong></p>
             <p className="leading-relaxed">
-              Name, email address, phone number, and company details you provide during inquiries, consultations, or when requesting a quote.
+              Name, email address, and message content you submit through our contact, internship, startup, or demo forms. These messages are stored so our team can respond.
             </p>
-            <p className="leading-relaxed mt-4"><strong>Usage Data</strong></p>
+            <p className="leading-relaxed mt-4"><strong>Reviews</strong></p>
             <p className="leading-relaxed">
-              Interactions with our website, portfolio views, and diagnostic logs needed to operate and improve our online presence.
+              If you submit a testimonial, we store your name, email, role, rating, and review text. Public testimonials appear only after manual approval.
+            </p>
+            <p className="leading-relaxed mt-4"><strong>Job Applications</strong></p>
+            <p className="leading-relaxed">
+              Role applications on this website typically go to an external apply URL. Internship and startup inquiries submitted here are stored as contact messages.
             </p>
             <p className="leading-relaxed mt-4"><strong>Project Data</strong></p>
             <p className="leading-relaxed">
-              When we engage in a project, we collect technical documentation, API keys, source code, and assets you provide to facilitate development. You should only share data you are authorized to provide.
+              When we engage in a project, we collect technical documentation, credentials, and assets you provide through agreed secure channels. You should only share data you are authorized to provide.
             </p>
           </motion.div>
 
@@ -75,25 +79,24 @@ export default function PrivacyPolicy() {
           </motion.div>
 
           <motion.div variants={item} className="space-y-4">
-            <h2 className="text-2xl font-bold text-white font-display">Cookies & Analytics</h2>
+            <h2 className="text-2xl font-bold text-white font-display">Cookies & Local Storage</h2>
             <p className="leading-relaxed">
-              We use essential cookies and local storage to operate our website. Optional analytics help us understand user engagement and improve our site's reliability. You can control non-essential cookies through your browser settings.
+              We use essential cookies and browser local storage to operate this website, including session handling for the private admin portal. This site does not currently use third-party analytics or advertising trackers.
             </p>
           </motion.div>
 
           <motion.div variants={item} className="space-y-4">
             <h2 className="text-2xl font-bold text-white font-display">Third-party Services</h2>
             <p className="leading-relaxed">
-              HM Coding relies on infrastructure partners to develop and host your software, including:
+              HM Coding relies on infrastructure partners to operate this website, including:
             </p>
             <ul className="list-disc pl-6 space-y-2 text-gray-400">
-              <li>Cloud hosting and database providers (e.g. AWS, Vercel, Supabase)</li>
-              <li>Version control systems (e.g. GitHub, GitLab)</li>
-              <li>Payment processors for invoicing</li>
-              <li>Email delivery for project notifications</li>
+              <li>Vercel for website hosting</li>
+              <li>Supabase for authentication and database storage of contact messages, reviews, and job listings</li>
+              <li>Version control systems such as GitHub</li>
             </ul>
             <p className="leading-relaxed mt-2">
-              These providers process data only as needed to perform their function and under contractual security obligations.
+              These providers process data only as needed to perform their function. We do not currently send automated email notifications from the website contact form.
             </p>
           </motion.div>
 
@@ -129,7 +132,7 @@ export default function PrivacyPolicy() {
             <h2 className="text-2xl font-bold text-white font-display">Contact</h2>
             <p className="leading-relaxed">
 
-              Privacy questions or data requests: contact @hmcoding.h@gmail.com
+              Privacy questions or data requests: hmcoding.h@gmail.com
 
             </p>
           </motion.div>

@@ -6,6 +6,7 @@ import InternshipHero from "../components/InternshipHero";
 import InternshipDetails from "../components/InternshipDetails";
 import { Scroll3DWrapper } from "../components/shared/Scroll3DWrapper";
 import { supabase } from "../lib/supabase";
+import { getUserErrorMessage } from "../lib/errors";
 interface CareersProps {
   openContact: () => void;
   openStartupContact: () => void;
@@ -17,44 +18,44 @@ const Careers: React.FC<CareersProps> = ({
 }) => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const fetchJobs = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const { data, error: fetchError } = await supabase
+        .from("jobs")
+        .select("*")
+        .eq("active", true);
+
+      if (fetchError) {
+        setError(getUserErrorMessage(fetchError, "Unable to load openings right now."));
+        return;
+      }
+
+      const formattedJobs: Job[] = (data || []).map((job) => ({
+        _id: job.id,
+        title: job.title,
+        location: job.location || "",
+        experience: job.experience || "",
+        type: job.job_type || "",
+        salary: job.salary || "",
+        time: job.time || "",
+        description: job.description || "",
+        applyUrl: job.apply_url || "",
+      }));
+
+      setJobs(formattedJobs);
+    } catch (err) {
+      setError(getUserErrorMessage(err, "Unable to load openings right now."));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchJobs = async () => {
-      try {
-        // const res = await fetch("https://hm-coding.onrender.com/jobs");
-        // const data = await res.json();
-        // setJobs(data);
-   const { data, error } = await supabase
-  .from("jobs")
-  .select("*")
-  .eq("active", true);
-
-if (error) {
-  console.error(error);
-  return;
-}
-
-const formattedJobs: Job[] = (data || []).map((job) => ({
-  _id: job.id,
-  title: job.title,
-  location: job.location || "",
-  experience: job.experience || "",
-  type: job.job_type || "",
-  salary: job.salary || "",
-  time: job.time || "",
-  description: job.description || "",
-  applyUrl: job.apply_url || "",
-}));
-
-setJobs(formattedJobs);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchJobs();
+    void fetchJobs();
   }, []);
 
   return (
@@ -126,13 +127,26 @@ setJobs(formattedJobs);
               </p>
             )}
 
-            {!loading && jobs.length === 0 && (
+            {!loading && error && (
+              <div className="text-center">
+                <p className="text-red-400 font-semibold">{error}</p>
+                <button
+                  type="button"
+                  onClick={() => void fetchJobs()}
+                  className="mt-4 rounded-full border border-brand-cyan/30 px-5 py-2 text-sm font-semibold text-brand-cyan"
+                >
+                  Retry
+                </button>
+              </div>
+            )}
+
+            {!loading && !error && jobs.length === 0 && (
               <p className="text-center text-gray-400 font-semibold font-display">
-                No active openings right now.
+                No active openings right now. Internship applications are still welcome above.
               </p>
             )}
 
-            {!loading && jobs.length > 0 && (
+            {!loading && !error && jobs.length > 0 && (
               <motion.div 
                 className="mx-auto w-full max-w-[380px] md:max-w-none grid grid-cols-1 md:grid-cols-2 gap-8 preserve-3d"
                 initial="hidden"

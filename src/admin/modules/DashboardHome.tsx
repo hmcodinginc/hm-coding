@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StatCard from "../components/StatCard";
 import { supabase } from "../../lib/supabase";
+import { getUserErrorMessage } from "../../lib/errors";
 import type { DashboardStats } from "../../types/admin";
+import { AdminNotice } from "../components/AdminNotice";
 
 const DashboardHome: React.FC = () => {
   const navigate = useNavigate();
@@ -24,44 +26,36 @@ const DashboardHome: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      const [jobsResult, reviewsResult, messagesResult] =
-        await Promise.all([
-          supabase.from("jobs").select("*", { count: "exact", head: true }),
-          supabase.from("reviews").select("*", { count: "exact", head: true }),
-          supabase
-            .from("contact_messages")
-            .select("*", { count: "exact", head: true }),
-        ]);
+      const [jobsResult, reviewsResult, messagesResult] = await Promise.all([
+        supabase.from("jobs").select("*", { count: "exact", head: true }),
+        supabase.from("reviews").select("*", { count: "exact", head: true }),
+        supabase.from("contact_messages").select("id, subject"),
+      ]);
 
       if (jobsResult.error) throw jobsResult.error;
       if (reviewsResult.error) throw reviewsResult.error;
       if (messagesResult.error) throw messagesResult.error;
 
+      const inquiryCount = (messagesResult.data || []).filter((row) => {
+        const subject = (row.subject || "").toLowerCase();
+        return subject.includes("internship") || subject.includes("startup");
+      }).length;
+
       setStats({
         totalJobs: jobsResult.count || 0,
         totalReviews: reviewsResult.count || 0,
-        totalMessages: messagesResult.count || 0,
-        totalApplications: 0,
+        totalMessages: messagesResult.data?.length || 0,
+        totalApplications: inquiryCount,
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch statistics");
+      setError(getUserErrorMessage(err, "Unable to load dashboard statistics."));
     } finally {
       setLoading(false);
     }
   };
 
   if (error) {
-    return (
-      <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-6">
-        <p className="text-red-400">Error: {error}</p>
-        <button
-          onClick={fetchStats}
-          className="mt-4 rounded-lg bg-red-500/20 px-4 py-2 text-sm text-red-300 transition hover:bg-red-500/30"
-        >
-          Retry
-        </button>
-      </div>
-    );
+    return <AdminNotice message={error} onRetry={() => void fetchStats()} />;
   }
 
   return (
@@ -91,7 +85,7 @@ const DashboardHome: React.FC = () => {
           onClick={() => navigate("/hm-portal-admin-dashboard/contact-messages")}
         />
         <StatCard
-          title="Applications"
+          title="Internship inquiries"
           value={stats.totalApplications}
           loading={loading}
           icon={<span className="text-2xl">📝</span>}

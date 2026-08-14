@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import DataTable from "../components/DataTable";
 import { supabase } from "../../lib/supabase";
+import { getUserErrorMessage } from "../../lib/errors";
 import type { Review } from "../../types/admin";
+import { AdminNotice } from "../components/AdminNotice";
 
 const Reviews: React.FC = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [actionError, setActionError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchReviews();
@@ -25,7 +29,7 @@ const Reviews: React.FC = () => {
       if (error) throw error;
       setReviews(data || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to fetch reviews");
+      setError(getUserErrorMessage(err, "Unable to load reviews."));
     } finally {
       setLoading(false);
     }
@@ -41,7 +45,7 @@ const Reviews: React.FC = () => {
       if (error) throw error;
       setReviews(reviews.map((r) => (r.id === id ? { ...r, approved: true } : r)));
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to approve review");
+      setActionError(getUserErrorMessage(err, "Unable to approve this review."));
     }
   };
 
@@ -55,7 +59,7 @@ const Reviews: React.FC = () => {
       if (error) throw error;
       setReviews(reviews.map((r) => (r.id === id ? { ...r, approved: false } : r)));
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to reject review");
+      setActionError(getUserErrorMessage(err, "Unable to reject this review."));
     }
   };
 
@@ -71,7 +75,7 @@ const Reviews: React.FC = () => {
       if (error) throw error;
       setReviews(reviews.filter((r) => r.id !== id));
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Failed to delete review");
+      setActionError(getUserErrorMessage(err, "Unable to delete this review."));
     }
   };
 
@@ -163,17 +167,7 @@ const Reviews: React.FC = () => {
   ];
 
   if (error) {
-    return (
-      <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-6">
-        <p className="text-red-400">Error: {error}</p>
-        <button
-          onClick={fetchReviews}
-          className="mt-4 rounded-lg bg-red-500/20 px-4 py-2 text-sm text-red-300 transition hover:bg-red-500/30"
-        >
-          Retry
-        </button>
-      </div>
-    );
+    return <AdminNotice message={error} onRetry={() => void fetchReviews()} />;
   }
 
   return (
@@ -187,6 +181,8 @@ const Reviews: React.FC = () => {
           Refresh
         </button>
       </div>
+
+      {actionError && <div className="mb-4"><AdminNotice message={actionError} /></div>}
 
       <DataTable
         data={reviews}

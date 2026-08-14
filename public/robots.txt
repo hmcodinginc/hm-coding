@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /hm-portal-admin-dashboard
+Disallow: /hm-portal-admin-dashboard/
 
 Sitemap: https://hmcoding.com/sitemap.xml

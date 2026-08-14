@@ -5,11 +5,7 @@ import { faqContent } from "../../constants/homeContent";
 // import { AnimatedLogo } from "../shared/AnimatedLogo";
 import { FaqAiAssistant } from "./FaqAiAssistant";
 
-type FaqSectionProps = {
-  openContact: () => void;
-};
-
-export function FaqSection({ openContact: _openContact }: FaqSectionProps) {
+export function FaqSection() {
   const { eyebrow, title, items } = faqContent;
   const [openIndex, setOpenIndex] = useState(0);
 

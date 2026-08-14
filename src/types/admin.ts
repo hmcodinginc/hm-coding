@@ -3,17 +3,18 @@ export interface ContactMessage {
   name: string;
   email: string;
   message: string;
+  subject: string | null;
   created_at: string;
 }
 
 export interface Review {
   id: string;
   name: string;
-  email?: string;
+  email: string | null;
   rating: number;
   review_text: string;
-  role?: string;
-  initials?: string;
+  role: string | null;
+  initials: string | null;
   approved: boolean;
   created_at: string;
 }
@@ -23,23 +24,21 @@ export interface Job {
   title: string;
   description: string;
   location: string;
+  experience: string | null;
   apply_url: string;
-  job_type?: string;
-  salary?: string;
-  time?: string;
+  job_type: string | null;
+  salary: string | null;
+  time: string | null;
   active: boolean;
   created_at: string;
 }
 
-export interface Application {
+export interface InternshipInquiry {
   id: string;
   name: string;
   email: string;
-  phone?: string;
-  job_id?: string;
-  resume_url?: string;
-  cover_letter?: string;
-  status: string;
+  message: string;
+  subject: string;
   created_at: string;
 }
 
