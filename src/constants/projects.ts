@@ -19,7 +19,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     shortDescription:
       "An AI-powered Conversion Rate Optimization (CRO) platform providing intent-aware analysis, actionable reports, and website conversion insights.",
     category: "Analytics & Growth",
-    tags: ["React", "TypeScript", "Tailwind", "Analytics"],
+    tags: ["React", "TypeScript", "Tailwind", "Analytics","Reports", "CRO"],
     status: "live",
     accentGradient: "bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600",
     visual: "📈",
@@ -27,6 +27,53 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     imageAlt: "Convertly Dashboard",
     directLink: "https://convertly.hmcoding.com/",
     badgeLabelOverride: "Live Product",
+
+  },
+  {
+    slug: "corestack",
+    title: "CoreStack",
+    shortDescription:
+      "CoreStack is a centralized practice management platform for CA firms, streamlining clients, tasks, billing, documents, and team workflows with role-based visibility.",
+    category: "Management",
+    tags: ["React", "TypeScript", "Tailwind", "CA Firm", "Management", "Platform"],
+    status: "live",
+    accentGradient: "bg-gradient-to-r from-blue-500 via-indigo-500 to-violet-600",
+    visual: "🏢",
+    imageSrc: "/project-images/CoreStack(1).png",
+    imageAlt: "CoreStack Dashboard",
+    directLink: "https://corestack.hmcoding.com/",
+    badgeLabelOverride: "Live Project",
+  },
+  {
+    slug: "tailor",
+    title: "Tailor",
+    shortDescription:
+      "Tailor Management System is a full-stack web app that centralizes customer profiles, body measurements, garment orders, and delivery schedules for tailoring businesses.",
+    category: "Management",
+    tags: ["React", "TypeScript", "Tailwind", "Tailoring", "Orders", "Management"],
+    status: "live",
+    accentGradient: "bg-gradient-to-r from-pink-500 via-rose-500 to-red-600",
+    visual: "✂️",
+    imageSrc: "/project-images/Tailor.jpg",
+    imageAlt: "Tailor Dashboard",
+    directLink: "https://tms-frontend-x0we.onrender.com/",
+    badgeLabelOverride: "Live Project"
+
+  },
+  {
+    slug: "restaurant-pos",
+    title: "Restaurant POS System",
+    shortDescription:
+      "Fast counter workflow: orders, kitchen routing, tabs, and shift reporting in one calm, touch-friendly surface.",
+    category: "Point of sale",
+    tags: ["React", "Real-time", "Payments", "Kitchen display"],
+    status: "live",
+    accentGradient: "bg-gradient-to-r from-orange-500 via-rose-500 to-amber-600",
+    visual: "🍽️",
+    imageSrc: "/project-images/restaurant.png",
+    imageAlt: "Restaurant POS System Dashboard",
+    directLink: "https://dishdash.hmcoding.com/",
+    badgeLabelOverride: "Live Project"
   },
   {
     slug: "gym-management",
@@ -57,7 +104,6 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     imageAlt: "Client Reminder CRM Dashboard",
     directLink: "https://remindflow.hmcoding.com/",
     badgeLabelOverride: "Live Project",
-
   },
   {
     slug: "inventory-system",
@@ -71,6 +117,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     visual: "📦",
     imageSrc: "/project-images/inventory.jpg",
     imageAlt: "Inventory Management Dashboard",
+    badgeLabelOverride: "Live Demo",
   },
   {
     slug: "real-estate-crm",
@@ -84,21 +131,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     visual: "🏠",
     imageSrc: "/project-images/real-state.png",
     imageAlt: "Real Estate CRM Dashboard",
-  },
-  {
-
-    slug: "restaurant-pos",
-    title: "Restaurant POS System",
-    shortDescription:
-      "Fast counter workflow: orders, kitchen routing, tabs, and shift reporting in one calm, touch-friendly surface.",
-    category: "Point of sale",
-    tags: ["React", "Real-time", "Payments", "Kitchen display"],
-    status: "live",
-    accentGradient: "bg-gradient-to-r from-orange-500 via-rose-500 to-amber-600",
-    visual: "🍽️",
-    imageSrc: "/project-images/restaurant.png",
-    imageAlt: "Restaurant POS System Dashboard",
-
+    badgeLabelOverride: "Live Demo",
   },
 ] as const;
 
@@ -114,7 +147,7 @@ export function isKnownPortfolioSlug(slug: string): boolean {
 
 /** Homepage spotlight — order defines card order (must exist on `portfolioProjects`). */
 
-export const homeFeaturedProjectSlugs = ["convertly", "gym-management", "client-reminder-crm"] as const;
+export const homeFeaturedProjectSlugs = ["convertly", "corestack", "tailor"] as const;
 
 
 export function getHomeFeaturedProjects(): PortfolioProject[] {
