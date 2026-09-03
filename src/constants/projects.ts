@@ -56,7 +56,7 @@ export const portfolioProjects: readonly PortfolioProject[] = [
     visual: "✂️",
     imageSrc: "/project-images/Tailor.jpg",
     imageAlt: "Tailor Dashboard",
-    directLink: "https://tms-frontend-x0we.onrender.com/",
+    directLink: "https://tailorpro.hmcoding.com/",
     badgeLabelOverride: "Live Project"
 
   },
